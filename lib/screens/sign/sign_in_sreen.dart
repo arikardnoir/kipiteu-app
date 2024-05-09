@@ -1,9 +1,11 @@
-// ignore_for_file: unused_field
+// ignore_for_file: unused_field, avoid_print, use_build_context_synchronously
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:kipiteu_app/screens/sign/reset_password.dart';
 import 'package:kipiteu_app/screens/sign/sign_up_screen.dart';
+import 'package:kipiteu_app/services/email_services/email_sign_in_service/email_sign_in_service.dart';
+import 'package:kipiteu_app/services/google_services/google_sign_in_service/google_sign_in_service.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -15,6 +17,23 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   bool _isPasswordVisible = false;
   final bool _isPasswordStillVisible = false;
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  Future<void> signIn() async {
+    String email = emailController.text;
+    String password = passwordController.text;
+
+    try {
+      User user = await EmailSignInAPIService(email, password);
+      print('Token: ${user.token}');
+      print('Nome: ${user.name}');
+      print('Email: ${user.email}');
+    } catch (e) {
+      print('Erro ao fazer login: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,47 +60,45 @@ class _SignInScreenState extends State<SignInScreen> {
                     height: 20.0,
                   ),
                   const SizedBox(height: 40),
-                  const SizedBox(
-                    height: 48,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        labelText: 'E-mail',
-                        border: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                        labelStyle: TextStyle(color: Colors.black),
+                  TextField(
+                    controller:
+                        emailController, // Passe o controlador diretamente
+                    decoration: const InputDecoration(
+                      labelText: 'E-mail',
+                      border: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
                       ),
-                      cursorColor: Colors.black,
+                      labelStyle: TextStyle(color: Colors.black),
                     ),
+                    cursorColor: Colors.black,
                   ),
                   const SizedBox(height: 20),
-                  SizedBox(
-                    height: 48,
-                    child: TextField(
-                      obscureText: !_isPasswordVisible,
-                      decoration: InputDecoration(
-                        labelText: 'Senha',
-                        border: const OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _isPasswordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _isPasswordVisible = !_isPasswordVisible;
-                            });
-                          },
+                  TextField(
+                    controller:
+                        passwordController, // Passe o controlador diretamente
+                    obscureText: !_isPasswordVisible,
+                    decoration: InputDecoration(
+                      labelText: 'Senha',
+                      border: const OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                         ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                        labelStyle: const TextStyle(color: Colors.black),
+                        onPressed: () {
+                          setState(() {
+                            _isPasswordVisible = !_isPasswordVisible;
+                          });
+                        },
                       ),
-                      cursorColor: Colors.black,
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      labelStyle: const TextStyle(color: Colors.black),
                     ),
+                    cursorColor: Colors.black,
                   ),
                   const SizedBox(height: 20),
                   GestureDetector(
@@ -99,38 +116,42 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   ElevatedButton(
-                    onPressed: () {
-                      /*  Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => const SignInScreen(),
-                        ),
-                      ); */
+                    onPressed: () async {
+                      print('Email: ${emailController.text}');
+                      print('Senha: ${passwordController.text}');
+                      await signIn();
                     },
                     style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(
+                          double.infinity, 50), // Expandindo horizontalmente
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.redAccent,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(31.0),
                       ),
-                      fixedSize: const Size.fromHeight(44),
                     ),
                     child: const Text(
                       'Entrar',
-                      style: TextStyle(fontSize: 16.0),
+                      style: TextStyle(
+                        fontSize: 16.0,
+                      ),
                     ),
                   ),
                   const SizedBox(
                     height: 10.0,
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      /* Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => const AccountTypeScreen(),
-                        ),
-                      ); */
+                    onPressed: () async {
+                      try {
+                        await GoogleSignInAPIService();
+                      } catch (error) {
+                        // Ação a ser realizada em caso de erro durante o login
+                        print('Erro durante o login com o Google: $error');
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(
@@ -160,7 +181,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                          text: 'Registra-se',
+                          text: 'Registrar',
                           style: const TextStyle(
                             fontSize: 16.0,
                             color: Colors.redAccent,
@@ -173,13 +194,6 @@ class _SignInScreenState extends State<SignInScreen> {
                                 ),
                               );
                             },
-                        ),
-                        const TextSpan(
-                          text: ' de graça',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.black,
-                          ),
                         ),
                       ],
                     ),
