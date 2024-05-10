@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kipiteu_app/screens/initial/account_type.dart';
-import 'package:kipiteu_app/screens/sign/sign_in_sreen.dart';
+import 'package:kipiteu_app/screens/sign/sign_in_screen.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({super.key});
