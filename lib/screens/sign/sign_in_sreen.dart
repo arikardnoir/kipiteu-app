@@ -21,20 +21,6 @@ class _SignInScreenState extends State<SignInScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  Future<void> signIn() async {
-    String email = emailController.text;
-    String password = passwordController.text;
-
-    try {
-      User user = await EmailSignInAPIService(email, password);
-      print('Token: ${user.token}');
-      print('Nome: ${user.name}');
-      print('Email: ${user.email}');
-    } catch (e) {
-      print('Erro ao fazer login: $e');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,9 +107,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      print('Email: ${emailController.text}');
-                      print('Senha: ${passwordController.text}');
-                      await signIn();
+                      await EmailSignInAPIService(
+                          emailController.text, passwordController.text);
                     },
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(

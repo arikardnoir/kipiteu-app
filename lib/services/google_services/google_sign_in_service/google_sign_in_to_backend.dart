@@ -29,7 +29,7 @@ Future<LoginResponse?> sendSignInDataToBackend(
   String backendUrl = 'https://kipiteu.onrender.com/login';
 
   try {
-    Map<String, dynamic> signInData = {
+    Map<String, dynamic> googleSignInData = {
       'email': email,
       'fullname': fullname,
       'type': type,
@@ -42,7 +42,7 @@ Future<LoginResponse?> sendSignInDataToBackend(
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(signInData),
+      body: jsonEncode(googleSignInData),
     );
 
     if (response.statusCode == 200) {
