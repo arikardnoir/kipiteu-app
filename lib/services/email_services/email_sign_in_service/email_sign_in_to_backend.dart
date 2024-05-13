@@ -3,15 +3,15 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class LoginResponse {
+class EmailLoginResponse {
   final String? token;
   final String? email;
   final String? fullname;
 
-  LoginResponse({this.token, this.email, this.fullname});
+  EmailLoginResponse({this.token, this.email, this.fullname});
 
-  factory LoginResponse.fromJson(Map<String, dynamic> json) {
-    return LoginResponse(
+  factory EmailLoginResponse.fromJson(Map<String, dynamic> json) {
+    return EmailLoginResponse(
       token: json['token'],
       email: json['data']['Email'],
       fullname: json['data']['Fullname'],
@@ -19,22 +19,18 @@ class LoginResponse {
   }
 }
 
-Future<LoginResponse?> sendSignInDataToBackend(
+Future<EmailLoginResponse?> sendEmailSignInDataToBackend(
   String email,
-  String fullname,
+  String password,
   String type,
-  String google_id,
-  String google_verification_code,
 ) async {
   String backendUrl = 'https://kipiteu.onrender.com/login';
 
   try {
-    Map<String, dynamic> googleSignInData = {
+    Map<String, dynamic> emailSignInData = {
       'email': email,
-      'fullname': fullname,
+      'password': password,
       'type': type,
-      'google_id': google_id,
-      'google_verification_code': google_verification_code,
     };
 
     final response = await http.post(
@@ -42,12 +38,12 @@ Future<LoginResponse?> sendSignInDataToBackend(
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(googleSignInData),
+      body: jsonEncode(emailSignInData),
     );
 
     if (response.statusCode == 200) {
       Map<String, dynamic> responseData = jsonDecode(response.body);
-      return LoginResponse.fromJson(responseData);
+      return EmailLoginResponse.fromJson(responseData);
     } else {
       print(
           'Erro ao enviar dados da conta para o backend. Código de status: ${response.statusCode}');

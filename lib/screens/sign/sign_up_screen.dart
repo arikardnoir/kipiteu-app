@@ -1,9 +1,13 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unused_field, use_build_context_synchronously
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:kipiteu_app/screens/sign/sign_in_sreen.dart';
+import 'package:kipiteu_app/screens/sign/otp_screen.dart';
+
+import 'package:kipiteu_app/screens/sign/sign_in_screen.dart';
 import 'package:kipiteu_app/services/google_services/google_sign_in_service/google_sign_in_service.dart';
+import 'package:kipiteu_app/services/otp_services.dart/send_otp_service.dart';
+import 'package:kipiteu_app/services/sign_up_services/sign_up_service.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -14,7 +18,14 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   bool _isPasswordVisible = false;
-  bool _isPasswordStillVisible = false;
+  final bool _isPasswordStillVisible = false;
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController nicknameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +43,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 10.0,
                   ),
                   const Text(
-                    'Cadastrar',
+                    'Registrar',
                     textAlign: TextAlign.center,
                     style:
                         TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
@@ -47,102 +58,129 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         TextStyle(fontSize: 14.0, fontWeight: FontWeight.w400),
                   ),
                   const SizedBox(height: 40),
-                  const SizedBox(
-                    height: 48,
-                    child: TextField(
-                      keyboardType: TextInputType.name,
-                      decoration: InputDecoration(
-                        labelText: 'Nome',
-                        border: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                        labelStyle: TextStyle(color: Colors.black),
+                  TextField(
+                    keyboardType: TextInputType.name,
+                    controller: nameController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
                       ),
-                      cursorColor: Colors.black,
+
+                      labelText: 'Nome',
+                      labelStyle: TextStyle(color: Colors.black),
+                      contentPadding: EdgeInsets.fromLTRB(12.0, 20.0, 12.0,
+                          12.0), // Ajuste o preenchimento interno aqui
                     ),
+                    cursorColor: Colors.black,
                   ),
                   const SizedBox(height: 20),
-                  const SizedBox(
-                    height: 48,
-                    child: TextField(
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText: 'E-mail',
-                        border: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                        labelStyle: TextStyle(color: Colors.black),
+                  TextField(
+                    keyboardType: TextInputType.name,
+                    controller: nicknameController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
                       ),
-                      cursorColor: Colors.black,
+
+                      labelText: 'Sobrenome',
+                      labelStyle: TextStyle(color: Colors.black),
+                      contentPadding: EdgeInsets.fromLTRB(12.0, 20.0, 12.0,
+                          12.0), // Ajuste o preenchimento interno aqui
                     ),
+                    cursorColor: Colors.black,
                   ),
                   const SizedBox(height: 20),
-                  SizedBox(
-                    height: 48,
-                    child: TextField(
-                      obscureText: !_isPasswordVisible,
-                      decoration: InputDecoration(
-                        labelText: 'Senha',
-                        border: const OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _isPasswordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _isPasswordVisible = !_isPasswordVisible;
-                            });
-                          },
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                        labelStyle: const TextStyle(color: Colors.black),
+                  TextField(
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
                       ),
-                      cursorColor: Colors.black,
+
+                      labelText: 'Email',
+                      labelStyle: TextStyle(color: Colors.black),
+                      contentPadding: EdgeInsets.fromLTRB(12.0, 20.0, 12.0,
+                          12.0), // Ajuste o preenchimento interno aqui
                     ),
+                    cursorColor: Colors.black,
+                  ),
+                  const SizedBox(height: 20),
+                  TextField(
+                    controller: passwordController,
+                    obscureText: !_isPasswordVisible,
+                    decoration: InputDecoration(
+                      labelText: 'Senha',
+                      border: const OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isPasswordVisible = !_isPasswordVisible;
+                          });
+                        },
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      labelStyle: const TextStyle(color: Colors.black),
+                    ),
+                    cursorColor: Colors.black,
                   ),
                   const SizedBox(height: 12),
-                  SizedBox(
-                    height: 48,
-                    child: TextField(
-                      obscureText: !_isPasswordStillVisible,
-                      decoration: InputDecoration(
-                        labelText: 'Confirmar senha',
-                        border: const OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _isPasswordStillVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _isPasswordStillVisible =
-                                  !_isPasswordStillVisible;
-                            });
-                          },
+                  TextField(
+                    controller: confirmPasswordController,
+                    obscureText: !_isPasswordVisible,
+                    decoration: InputDecoration(
+                      labelText: 'Confirmar senha',
+                      border: const OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                         ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                        labelStyle: const TextStyle(color: Colors.black),
+                        onPressed: () {
+                          setState(() {
+                            _isPasswordVisible = !_isPasswordVisible;
+                          });
+                        },
                       ),
-                      cursorColor: Colors.black,
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      labelStyle: const TextStyle(color: Colors.black),
                     ),
+                    cursorColor: Colors.black,
                   ),
                   const SizedBox(height: 30),
                   ElevatedButton(
-                    onPressed: () {
-                      /*  Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => const SignInScreen(),
-                        ),
-                      ); */
+                    onPressed: () async {
+                      try {
+                        await SignUpAPIService.signUp(
+                          fullname: nameController.text,
+                          nickname: nicknameController.text,
+                          email: emailController.text,
+                          password: passwordController.text,
+                        );
+                        sendOTPService(emailController.text);
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => const OTPScreen(),
+                          ),
+                        );
+                      } catch (error) {
+                        // Lidar com qualquer erro que ocorra durante o registro
+                        print('Erro durante o registro: $error');
+                        // Você pode exibir uma mensagem de erro para o usuário, se desejar
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
@@ -166,13 +204,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       try {
                         await GoogleSignInAPIService();
                       } catch (error) {
-                        // Ação a ser realizada em caso de erro durante o login
                         print('Erro durante o login com o Google: $error');
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(
-                          double.infinity, 48), // Expandindo horizontalmente
+                      minimumSize: const Size(double.infinity, 48),
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.redAccent,
                       shape: RoundedRectangleBorder(

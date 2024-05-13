@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kipiteu_app/screens/initial/account_type.dart';
-import 'package:kipiteu_app/screens/sign/sign_in_sreen.dart';
+import 'package:kipiteu_app/screens/sign/sign_up_screen.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({super.key});
@@ -27,7 +27,7 @@ class _InitialScreenState extends State<InitialScreen> {
                   Column(
                     children: [
                       Image.asset(
-                        'assets/icons/6132028.jpg',
+                        'assets/images/6132028.jpg',
                         fit: BoxFit.contain,
                       ),
                       const SizedBox(
@@ -108,7 +108,7 @@ class _InitialScreenState extends State<InitialScreen> {
                       } else {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => const AccountTypeScreen(),
+                            builder: (context) => const SignUpScreen(),
                           ),
                         );
                       }
@@ -131,9 +131,9 @@ class _InitialScreenState extends State<InitialScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).push(
+                      Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => const SignInScreen(),
+                          builder: (context) => const AccountTypeScreen(),
                         ),
                       );
                     },
