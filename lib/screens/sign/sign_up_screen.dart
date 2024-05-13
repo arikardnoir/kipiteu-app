@@ -1,9 +1,12 @@
-// ignore_for_file: avoid_print, unused_field
+// ignore_for_file: avoid_print, unused_field, use_build_context_synchronously
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:kipiteu_app/screens/sign/otp_screen.dart';
+
 import 'package:kipiteu_app/screens/sign/sign_in_screen.dart';
 import 'package:kipiteu_app/services/google_services/google_sign_in_service/google_sign_in_service.dart';
+import 'package:kipiteu_app/services/otp_services.dart/send_otp_service.dart';
 import 'package:kipiteu_app/services/sign_up_services/sign_up_service.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -40,7 +43,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 10.0,
                   ),
                   const Text(
-                    'Cadastrar',
+                    'Registrar',
                     textAlign: TextAlign.center,
                     style:
                         TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
@@ -56,6 +59,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   const SizedBox(height: 40),
                   TextField(
+                    keyboardType: TextInputType.name,
                     controller: nameController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
@@ -72,6 +76,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   const SizedBox(height: 20),
                   TextField(
+                    keyboardType: TextInputType.name,
                     controller: nicknameController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
@@ -89,6 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const SizedBox(height: 20),
                   TextField(
                     controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
@@ -159,12 +165,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     onPressed: () async {
                       try {
                         await SignUpAPIService.signUp(
-                          name: nameController.text,
+                          fullname: nameController.text,
                           nickname: nicknameController.text,
                           email: emailController.text,
                           password: passwordController.text,
                         );
-                        // Aqui você pode adicionar a navegação para a próxima tela se o registro for bem-sucedido
+                        sendOTPService(emailController.text);
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => const OTPScreen(),
+                          ),
+                        );
                       } catch (error) {
                         // Lidar com qualquer erro que ocorra durante o registro
                         print('Erro durante o registro: $error');
@@ -193,13 +204,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       try {
                         await GoogleSignInAPIService();
                       } catch (error) {
-                        // Ação a ser realizada em caso de erro durante o login
                         print('Erro durante o login com o Google: $error');
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(
-                          double.infinity, 48), // Expandindo horizontalmente
+                      minimumSize: const Size(double.infinity, 48),
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.redAccent,
                       shape: RoundedRectangleBorder(

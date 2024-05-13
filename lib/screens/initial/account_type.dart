@@ -2,6 +2,7 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:kipiteu_app/screens/sign/sign_in_screen.dart';
 import 'package:kipiteu_app/screens/sign/sign_up_screen.dart';
 import 'package:kipiteu_app/services/google_services/google_sign_in_service/google_sign_in_service.dart';
 
@@ -28,7 +29,7 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
                   Column(
                     children: [
                       Image.asset(
-                        'assets/icons/8071239.jpg',
+                        'assets/images/8071239.jpg',
                         fit: BoxFit.contain,
                       ),
                       const SizedBox(
@@ -84,7 +85,7 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).push(
+                      Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => const SignUpScreen(),
                         ),
@@ -127,7 +128,7 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
                             ..onTap = () {
                               Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
-                                  builder: (context) => const SignUpScreen(),
+                                  builder: (context) => const SignInScreen(),
                                 ),
                               );
                             },
