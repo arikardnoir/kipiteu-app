@@ -1,17 +1,18 @@
-// ignore_for_file: unused_field
+// ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
 
-class ResetPasswordScreen extends StatefulWidget {
-  const ResetPasswordScreen({super.key});
+import 'package:kipiteu_app/services/password_services/forgot_password_service.dart';
+
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
-  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
+  _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
 }
 
-class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
-  final bool _isPasswordVisible = false;
-  final bool _isPasswordStillVisible = false;
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(
-                    height: 40.0,
+                    height: 70.0,
                   ),
                   const Text(
                     'Não se preocupe!',
@@ -43,28 +44,23 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     style: TextStyle(fontSize: 16.0),
                   ),
                   const SizedBox(height: 40),
-                  const SizedBox(
-                    height: 48,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        labelText: 'E-mail',
-                        border: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                        labelStyle: TextStyle(color: Colors.black),
+                  TextField(
+                    controller: _emailController,
+                    decoration: const InputDecoration(
+                      labelText: 'E-mail',
+                      border: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
                       ),
-                      cursorColor: Colors.black,
+                      labelStyle: TextStyle(color: Colors.black),
                     ),
+                    cursorColor: Colors.black,
                   ),
-                  const SizedBox(height: 70),
+                  const SizedBox(height: 30),
                   ElevatedButton(
-                    onPressed: () {
-                      /*  Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => const SignInScreen(),
-                        ),
-                      ); */
+                    onPressed: () async {
+                      await forgotPasswordService(
+                          _emailController.text, context);
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,

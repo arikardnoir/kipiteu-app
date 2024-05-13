@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kipiteu_app/screens/initial/account_type.dart';
+
+import 'package:kipiteu_app/screens/sign/sign_in_screen.dart';
 import 'package:kipiteu_app/screens/sign/sign_up_screen.dart';
 
 class InitialScreen extends StatefulWidget {
@@ -133,7 +134,7 @@ class _InitialScreenState extends State<InitialScreen> {
                     onPressed: () {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => const AccountTypeScreen(),
+                          builder: (context) => const SignInScreen(),
                         ),
                       );
                     },

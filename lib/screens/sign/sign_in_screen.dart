@@ -2,7 +2,8 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:kipiteu_app/screens/sign/reset_password.dart';
+import 'package:kipiteu_app/screens/password/forgot_password_screen.dart';
+
 import 'package:kipiteu_app/screens/sign/sign_up_screen.dart';
 import 'package:kipiteu_app/services/email_services/email_sign_in_service/email_sign_in_service.dart';
 import 'package:kipiteu_app/services/google_services/google_sign_in_service/google_sign_in_service.dart';
@@ -34,7 +35,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(
-                    height: 40.0,
+                    height: 70.0,
                   ),
                   const Text(
                     'Login',
@@ -91,7 +92,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     onTap: () {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => const ResetPasswordScreen(),
+                          builder: (context) => const ForgotPasswordScreen(),
                         ),
                       );
                     },
