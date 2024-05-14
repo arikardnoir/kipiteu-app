@@ -1,8 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api, avoid_print, use_build_context_synchronously
 
+import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
-
-import 'package:kipiteu_app/services/password_services/reset_password_service.dart';
+import 'package:http/http.dart' as http;
+import 'package:kipiteu_app/screens/sign/sign_in_screen.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
@@ -37,9 +39,20 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    Timer(const Duration(seconds: 90), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const SignInScreen()),
+      );
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           return SingleChildScrollView(
@@ -136,15 +149,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      String code = _controller1.text +
+                      String opt = _controller1.text +
                           _controller2.text +
                           _controller3.text +
                           _controller4.text +
                           _controller5.text +
                           _controller6.text;
-                      resetPasswordService(code, _passwordController.text,
+                      _resetPasswordService(opt, _passwordController.text,
                           _passwordConfirmController.text);
-                      print(code);
+                      print(opt);
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
@@ -160,14 +173,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  TextButton(
+                  /* TextButton(
                     onPressed: () {},
                     child: const Text(
                       'Enviar de novo',
                       style: TextStyle(fontSize: 13.0, color: Colors.black),
                       textAlign: TextAlign.end,
                     ),
-                  ),
+                  ), */
                 ],
               ),
             ),
@@ -217,32 +230,35 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     );
   }
 
-  /* Future<void> _verifyOTPService(
-      String password, String passwordConfirm, BuildContext context) async {
+  Future<void> _resetPasswordService(
+      String otp, String password, String passwordConfirm) async {
     const url = 'https://kipiteu.onrender.com/auth/resetpassword';
 
     try {
-      final response = await http.post(
+      final response = await http.patch(
         Uri.parse(url),
-        body: jsonEncode(
-            {'password': password, 'passwordConfirm': passwordConfirm}),
+        body: jsonEncode({
+          'otp': otp,
+          'password': password,
+          'passwordConfirm': passwordConfirm
+        }),
         headers: {'Content-Type': 'application/json'},
       );
 
       if (response.statusCode == 200) {
-        print('OTP verificado com sucesso!');
+        print('Password modificada com sucesso!');
 
-        Navigator.push(
+        /* Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const SignInScreen()),
-        );
+        ); */
       } else {
-        print('Erro ao verificar OTP: ${response.body}');
-        throw Exception('Erro ao verificar OTP');
+        print('Erro ao modificar password: ${response.body}');
+        throw Exception('Erro ao modificar password');
       }
     } catch (error) {
-      print('Erro ao verificar OTP: $error');
-      throw Exception('Erro ao verificar OTP');
+      print('Erro ao modificar password: $error');
+      throw Exception('Erro ao modificar password');
     }
-  } */
+  }
 }

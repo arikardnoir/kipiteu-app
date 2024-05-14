@@ -37,7 +37,7 @@ class _OTPScreenState extends State<OTPScreen> {
   void initState() {
     super.initState();
 
-    Timer(const Duration(seconds: 1000), () {
+    Timer(const Duration(seconds: 30), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const SignInScreen()),

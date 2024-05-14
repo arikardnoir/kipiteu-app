@@ -1,11 +1,11 @@
-// ignore_for_file: avoid_print
+/* // ignore_for_file: avoid_print
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future<void> resetPasswordService(
     String otp, String password, String confirmPassword) async {
-  const url = 'https://kipiteu.onrender.com/users/verify';
+  const url = 'https://kipiteu.onrender.com/auth/resetpassword/';
 
   try {
     final response = await http.post(
@@ -19,13 +19,14 @@ Future<void> resetPasswordService(
     );
 
     if (response.statusCode == 200) {
-      print('OTP enviado com sucesso');
+      print('Passord modificada com sucesso');
     } else {
-      print('Erro ao enviar OTP: ${response.body}');
-      throw Exception('Erro ao enviar OTP');
+      print('Erro ao modificar password: ${response.body}');
+      throw Exception('Erro ao modificar password');
     }
   } catch (error) {
-    print('Erro ao enviar OTP: $error');
-    throw Exception('Erro ao enviar OTP');
+    print('Erro ao modificar password: $error');
+    throw Exception('Erro ao modificar password');
   }
 }
+ */
