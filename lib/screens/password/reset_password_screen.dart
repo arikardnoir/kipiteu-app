@@ -2,25 +2,30 @@
 
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:kipiteu_app/screens/sign/sign_in_screen.dart';
 
-class OTPScreen extends StatefulWidget {
-  const OTPScreen({super.key});
+class ResetPasswordScreen extends StatefulWidget {
+  const ResetPasswordScreen({super.key});
 
   @override
-  _OTPScreenState createState() => _OTPScreenState();
+  _ResetPasswordScreenState createState() => _ResetPasswordScreenState();
 }
 
-class _OTPScreenState extends State<OTPScreen> {
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final TextEditingController _controller1 = TextEditingController();
   final TextEditingController _controller2 = TextEditingController();
   final TextEditingController _controller3 = TextEditingController();
   final TextEditingController _controller4 = TextEditingController();
   final TextEditingController _controller5 = TextEditingController();
   final TextEditingController _controller6 = TextEditingController();
+
+  bool _isPasswordVisible = false;
+
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordConfirmController =
+      TextEditingController();
 
   @override
   void dispose() {
@@ -37,7 +42,7 @@ class _OTPScreenState extends State<OTPScreen> {
   void initState() {
     super.initState();
 
-    Timer(const Duration(seconds: 30), () {
+    Timer(const Duration(seconds: 90), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const SignInScreen()),
@@ -57,26 +62,21 @@ class _OTPScreenState extends State<OTPScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const SizedBox(height: 10.0),
-                  Image.asset(
-                    'assets/images/numbercheck.jpg',
-                    height: constraints.maxHeight * 0.3,
-                  ),
-                  const SizedBox(height: 20.0),
+                  const SizedBox(height: 40.0),
                   const Text(
                     'Confirme o seu email',
                     textAlign: TextAlign.center,
                     style:
                         TextStyle(fontSize: 24.0, fontWeight: FontWeight.w500),
                   ),
-                  const SizedBox(height: 10.0),
+                  const SizedBox(height: 30.0),
                   const Text(
                     'Digite corretamente o código que enviamos no seu email para consolidar o seu login',
                     textAlign: TextAlign.left,
                     style:
                         TextStyle(fontSize: 16.0, fontWeight: FontWeight.w400),
                   ),
-                  const SizedBox(height: 20.0),
+                  const SizedBox(height: 60.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -94,17 +94,70 @@ class _OTPScreenState extends State<OTPScreen> {
                           controller: _controller6, first: false, last: true),
                     ],
                   ),
+                  const SizedBox(height: 20.0),
+                  TextField(
+                    controller: _passwordController,
+                    obscureText: !_isPasswordVisible,
+                    decoration: InputDecoration(
+                      labelText: 'Nova senha',
+                      border: const OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isPasswordVisible = !_isPasswordVisible;
+                          });
+                        },
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      labelStyle: const TextStyle(color: Colors.black),
+                    ),
+                    cursorColor: Colors.black,
+                  ),
+                  const SizedBox(height: 20.0),
+                  TextField(
+                    controller: _passwordConfirmController,
+                    obscureText: !_isPasswordVisible,
+                    decoration: InputDecoration(
+                      labelText: 'Confirmar nova senha',
+                      border: const OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isPasswordVisible = !_isPasswordVisible;
+                          });
+                        },
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      labelStyle: const TextStyle(color: Colors.black),
+                    ),
+                    cursorColor: Colors.black,
+                  ),
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      String code = _controller1.text +
+                      String opt = _controller1.text +
                           _controller2.text +
                           _controller3.text +
                           _controller4.text +
                           _controller5.text +
                           _controller6.text;
-                      _verifyOTPService(code, context);
-                      print(code);
+                      _resetPasswordService(opt, _passwordController.text,
+                          _passwordConfirmController.text);
+                      print(opt);
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
@@ -120,14 +173,14 @@ class _OTPScreenState extends State<OTPScreen> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  TextButton(
+                  /* TextButton(
                     onPressed: () {},
                     child: const Text(
                       'Enviar de novo',
                       style: TextStyle(fontSize: 13.0, color: Colors.black),
                       textAlign: TextAlign.end,
                     ),
-                  ),
+                  ), */
                 ],
               ),
             ),
@@ -177,30 +230,35 @@ class _OTPScreenState extends State<OTPScreen> {
     );
   }
 
-  Future<void> _verifyOTPService(String code, BuildContext context) async {
-    const url = 'https://kipiteu.onrender.com/users/verify';
+  Future<void> _resetPasswordService(
+      String otp, String password, String passwordConfirm) async {
+    const url = 'https://kipiteu.onrender.com/auth/resetpassword';
 
     try {
-      final response = await http.post(
+      final response = await http.patch(
         Uri.parse(url),
-        body: jsonEncode({'code': code}),
+        body: jsonEncode({
+          'otp': otp,
+          'password': password,
+          'passwordConfirm': passwordConfirm
+        }),
         headers: {'Content-Type': 'application/json'},
       );
 
       if (response.statusCode == 200) {
-        print('OTP verificado com sucesso!');
+        print('Password modificada com sucesso!');
 
-        Navigator.push(
+        /* Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const SignInScreen()),
-        );
+        ); */
       } else {
-        print('Erro ao verificar OTP: ${response.body}');
-        throw Exception('Erro ao verificar OTP');
+        print('Erro ao modificar password: ${response.body}');
+        throw Exception('Erro ao modificar password');
       }
     } catch (error) {
-      print('Erro ao verificar OTP: $error');
-      throw Exception('Erro ao verificar OTP');
+      print('Erro ao modificar password: $error');
+      throw Exception('Erro ao modificar password');
     }
   }
 }

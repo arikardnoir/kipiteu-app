@@ -1,12 +1,16 @@
-// ignore_for_file: non_constant_identifier_names, avoid_print
+// ignore_for_file: non_constant_identifier_names, avoid_print, use_build_context_synchronously
 
 import 'dart:async';
 import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:kipiteu_app/screens/sign/verify_account_screen.dart';
+
 import 'package:kipiteu_app/services/email_services/email_sign_in_service/email_sign_in_to_backend.dart';
 
 Future<EmailLoginResponse?> EmailSignInAPIService(
-    String email, String password) async {
+    String email, String password, BuildContext context) async {
   try {
     String type = 'email';
     String apiUrl = 'https://kipiteu.onrender.com/login';
@@ -34,8 +38,7 @@ Future<EmailLoginResponse?> EmailSignInAPIService(
         String token = responseData['token'];
         String email =
             responseData['data']['Email']; // Obtém o e-mail da chave 'data'
-        String fullname = responseData['data']
-            ['Fullname']; // Obtém o nome completo da chave 'data'
+        String fullname = responseData['data']['Fullname'];
 
         print('Token: $token');
         print('Email: $email');
@@ -47,6 +50,12 @@ Future<EmailLoginResponse?> EmailSignInAPIService(
         print('Token não encontrado na resposta da API');
         return null;
       }
+    } else if (response.statusCode == 403) {
+      print('Erro ao fazer login: conta não verificada!');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const VerifyAccountScreen()),
+      );
     } else {
       print('Erro ao fazer login: ${response.statusCode}');
       return null;
@@ -55,4 +64,5 @@ Future<EmailLoginResponse?> EmailSignInAPIService(
     print('Erro ao fazer login: $error');
     return null;
   }
+  return null;
 }

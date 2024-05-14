@@ -39,6 +39,7 @@ dependencies:
   crypto: ^3.0.3
   http: ^1.2.1
   email_auth: ^2.0.0
+  flutter_password_strength: ^0.1.6
 
 
 dev_dependencies:
@@ -68,6 +69,7 @@ flutter:
      - assets/images/6132028.jpg
      - assets/images/8071239.jpg
      - assets/images/numbercheck.jpg
+     - assets/icons/google.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

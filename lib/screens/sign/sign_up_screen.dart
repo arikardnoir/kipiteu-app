@@ -22,6 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController nicknameController = TextEditingController();
+  final TextEditingController cpfController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
@@ -69,12 +70,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                       labelText: 'Nome',
                       labelStyle: TextStyle(color: Colors.black),
-                      contentPadding: EdgeInsets.fromLTRB(12.0, 20.0, 12.0,
+                      contentPadding: EdgeInsets.fromLTRB(12.0, 14.0, 12.0,
                           12.0), // Ajuste o preenchimento interno aqui
                     ),
                     cursorColor: Colors.black,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   TextField(
                     keyboardType: TextInputType.name,
                     controller: nicknameController,
@@ -86,12 +87,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                       labelText: 'Sobrenome',
                       labelStyle: TextStyle(color: Colors.black),
-                      contentPadding: EdgeInsets.fromLTRB(12.0, 20.0, 12.0,
+                      contentPadding: EdgeInsets.fromLTRB(12.0, 14.0, 12.0,
                           12.0), // Ajuste o preenchimento interno aqui
                     ),
                     cursorColor: Colors.black,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
+                  TextField(
+                    keyboardType: TextInputType.name,
+                    controller: cpfController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+
+                      labelText: 'CPF',
+                      labelStyle: TextStyle(color: Colors.black),
+                      contentPadding: EdgeInsets.fromLTRB(12.0, 14.0, 12.0,
+                          12.0), // Ajuste o preenchimento interno aqui
+                    ),
+                    cursorColor: Colors.black,
+                  ),
+                  const SizedBox(height: 10),
                   TextField(
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
@@ -103,12 +121,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                       labelText: 'Email',
                       labelStyle: TextStyle(color: Colors.black),
-                      contentPadding: EdgeInsets.fromLTRB(12.0, 20.0, 12.0,
+                      contentPadding: EdgeInsets.fromLTRB(12.0, 14.0, 12.0,
                           12.0), // Ajuste o preenchimento interno aqui
                     ),
                     cursorColor: Colors.black,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   TextField(
                     controller: passwordController,
                     obscureText: !_isPasswordVisible,
@@ -131,6 +149,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         borderSide: BorderSide(color: Colors.black),
                       ),
                       labelStyle: const TextStyle(color: Colors.black),
+                      contentPadding:
+                          const EdgeInsets.fromLTRB(12.0, 14.0, 12.0, 12.0),
                     ),
                     cursorColor: Colors.black,
                   ),
@@ -157,6 +177,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         borderSide: BorderSide(color: Colors.black),
                       ),
                       labelStyle: const TextStyle(color: Colors.black),
+                      contentPadding:
+                          const EdgeInsets.fromLTRB(12.0, 14.0, 12.0, 12.0),
                     ),
                     cursorColor: Colors.black,
                   ),
@@ -169,6 +191,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           nickname: nicknameController.text,
                           email: emailController.text,
                           password: passwordController.text,
+                          cpf: cpfController.text,
                         );
                         sendOTPService(emailController.text);
                         Navigator.of(context).pushReplacement(

@@ -1,17 +1,18 @@
-// ignore_for_file: unused_field
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:kipiteu_app/screens/sign/otp_screen.dart';
+import 'package:kipiteu_app/services/otp_services.dart/verify_account_service.dart';
 
-class ResetPasswordScreen extends StatefulWidget {
-  const ResetPasswordScreen({super.key});
+class VerifyAccountScreen extends StatefulWidget {
+  const VerifyAccountScreen({super.key});
 
   @override
-  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
+  _VerifyAccountScreenState createState() => _VerifyAccountScreenState();
 }
 
-class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
-  final bool _isPasswordVisible = false;
-  final bool _isPasswordStillVisible = false;
+class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
+  final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +27,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(
-                    height: 40.0,
+                    height: 70.0,
                   ),
                   const Text(
-                    'Não se preocupe!',
+                    'Verifique a sua conta!',
                     textAlign: TextAlign.left,
                     style:
                         TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
@@ -43,28 +44,29 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     style: TextStyle(fontSize: 16.0),
                   ),
                   const SizedBox(height: 40),
-                  const SizedBox(
-                    height: 48,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        labelText: 'E-mail',
-                        border: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                        labelStyle: TextStyle(color: Colors.black),
+                  TextField(
+                    controller: _emailController,
+                    decoration: const InputDecoration(
+                      labelText: 'E-mail',
+                      border: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
                       ),
-                      cursorColor: Colors.black,
+                      labelStyle: TextStyle(color: Colors.black),
+                      contentPadding:
+                          EdgeInsets.fromLTRB(12.0, 14.0, 12.0, 12.0),
                     ),
+                    cursorColor: Colors.black,
                   ),
-                  const SizedBox(height: 70),
+                  const SizedBox(height: 30),
                   ElevatedButton(
-                    onPressed: () {
-                      /*  Navigator.of(context).pushReplacement(
+                    onPressed: () async {
+                      verrifyAccountService(_emailController.text);
+                      Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const SignInScreen(),
+                          builder: (context) => const OTPScreen(),
                         ),
-                      ); */
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
@@ -75,7 +77,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       fixedSize: const Size.fromHeight(48),
                     ),
                     child: const Text(
-                      'Recuperar senha',
+                      'Reenviar OTP',
                       style: TextStyle(fontSize: 16.0),
                     ),
                   ),

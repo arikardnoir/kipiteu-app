@@ -3,8 +3,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-Future<void> sendOTPService(String email) async {
-  const url = 'https://kipiteu.onrender.com/users/verify';
+Future<void> verrifyAccountService(String email) async {
+  const url = 'https://kipiteu.onrender.com/users/send-verify';
 
   try {
     final response = await http.post(
@@ -16,11 +16,11 @@ Future<void> sendOTPService(String email) async {
     if (response.statusCode == 200) {
       print('OTP enviado com sucesso para $email');
     } else {
-      print('Erro ao enviar OTP para $email: ${response.body}');
-      throw Exception('Erro ao enviar OTP');
+      //print('Erro ao enviar OTP para $email: ${response.body}');
+      throw Exception('');
     }
   } catch (error) {
-    print('Erro ao enviar OTP: $error');
-    throw Exception('Erro ao enviar OTP');
+    //print('Erro ao enviar OTP: $error');
+    throw Exception('');
   }
 }
