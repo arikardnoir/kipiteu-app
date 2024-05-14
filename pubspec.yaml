@@ -39,6 +39,7 @@ dependencies:
   crypto: ^3.0.3
   http: ^1.2.1
   email_auth: ^2.0.0
+  flutter_password_strength: ^1.0.1
 
 
 dev_dependencies:

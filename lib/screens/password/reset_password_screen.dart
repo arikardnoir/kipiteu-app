@@ -1,10 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api, avoid_print, use_build_context_synchronously
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:kipiteu_app/screens/sign/sign_in_screen.dart';
+
+import 'package:kipiteu_app/services/password_services/reset_password_service.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
@@ -144,8 +142,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           _controller4.text +
                           _controller5.text +
                           _controller6.text;
-                      _verifyOTPService(_passwordController.text,
-                          _passwordConfirmController.text, context);
+                      resetPasswordService(code, _passwordController.text,
+                          _passwordConfirmController.text);
                       print(code);
                     },
                     style: ElevatedButton.styleFrom(
@@ -219,7 +217,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     );
   }
 
-  Future<void> _verifyOTPService(
+  /* Future<void> _verifyOTPService(
       String password, String passwordConfirm, BuildContext context) async {
     const url = 'https://kipiteu.onrender.com/auth/resetpassword';
 
@@ -246,5 +244,5 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       print('Erro ao verificar OTP: $error');
       throw Exception('Erro ao verificar OTP');
     }
-  }
+  } */
 }
