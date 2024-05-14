@@ -108,8 +108,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      await EmailSignInAPIService(
-                          emailController.text, passwordController.text);
+                      await EmailSignInAPIService(emailController.text,
+                          passwordController.text, context);
                     },
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(
@@ -166,32 +166,6 @@ class _SignInScreenState extends State<SignInScreen> {
                       ],
                     ),
                   ),
-
-                  /* ElevatedButton(
-                    onPressed: () async {
-                      try {
-                        await GoogleSignInAPIService();
-                      } catch (error) {
-                        // Ação a ser realizada em caso de erro durante o login
-                        print('Erro durante o login com o Google: $error');
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(
-                          double.infinity, 50), // Expandindo horizontalmente
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.redAccent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(31.0),
-                      ),
-                    ),
-                    child: const Text(
-                      'Entrar com Google',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                      ),
-                    ),
-                  ), */
                   const SizedBox(
                     height: 30,
                   ),
