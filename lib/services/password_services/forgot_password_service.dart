@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:kipiteu_app/screens/password/reset_passord_screen.dart';
+import 'package:kipiteu_app/screens/password/reset_password_screen.dart';
 
 Future<void> forgotPasswordService(String email, BuildContext context) async {
   const url = 'https://kipiteu.onrender.com/auth/forgotpassword';

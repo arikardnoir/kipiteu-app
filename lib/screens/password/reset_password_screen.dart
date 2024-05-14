@@ -221,8 +221,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   Future<void> _verifyOTPService(
       String password, String passwordConfirm, BuildContext context) async {
-    const url =
-        'https://kipiteu.onrender.com/auth/resetpassword/BREdJLQp4sd5lg0nU6B5';
+    const url = 'https://kipiteu.onrender.com/auth/resetpassword';
 
     try {
       final response = await http.post(

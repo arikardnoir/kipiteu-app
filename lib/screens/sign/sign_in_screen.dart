@@ -148,13 +148,50 @@ class _SignInScreenState extends State<SignInScreen> {
                         borderRadius: BorderRadius.circular(31.0),
                       ),
                     ),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        /* Image.asset(
+                          'assets/icons/google.png', // Caminho para o ícone local
+                          height: 24, // Altura do ícone
+                        ), */
+                        SizedBox(
+                            width: 8), // Espaçamento entre o ícone e o texto
+                        Text(
+                          'Entrar com Google',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  /* ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        await GoogleSignInAPIService();
+                      } catch (error) {
+                        // Ação a ser realizada em caso de erro durante o login
+                        print('Erro durante o login com o Google: $error');
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(
+                          double.infinity, 50), // Expandindo horizontalmente
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.redAccent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(31.0),
+                      ),
+                    ),
                     child: const Text(
                       'Entrar com Google',
                       style: TextStyle(
                         fontSize: 16.0,
                       ),
                     ),
-                  ),
+                  ), */
                   const SizedBox(
                     height: 30,
                   ),
