@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kipiteu_app/screens/initial/initial_screen.dart';
+import 'package:kipiteu_app/screens/initial/splash_sreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.redAccent),
         useMaterial3: true,
       ),
-      home: const InitialScreen(),
+      home: const SplashScreen(),
     );
   }
 }

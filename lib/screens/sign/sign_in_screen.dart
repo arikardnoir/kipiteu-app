@@ -2,6 +2,7 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:kipiteu_app/screens/initial/initial_screen.dart';
 import 'package:kipiteu_app/screens/password/forgot_password_screen.dart';
 
 import 'package:kipiteu_app/screens/sign/sign_up_screen.dart';
@@ -25,6 +26,18 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back), // Ícone de voltar
+          onPressed: () {
+            Navigator.of(context).pop(
+              MaterialPageRoute(
+                builder: (context) => const InitialScreen(),
+              ),
+            );
+          },
+        ),
+      ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           return SingleChildScrollView(
