@@ -2,6 +2,7 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kipiteu_app/screens/initial/initial_screen.dart';
 import 'package:kipiteu_app/screens/sign/otp_screen.dart';
 
@@ -89,7 +90,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     cursorColor: Colors.black,
                   ),
                   const SizedBox(height: 10),
-                  TextField(
+                  /* TextField(
                     keyboardType: TextInputType.name,
                     controller: nicknameController,
                     decoration: const InputDecoration(
@@ -104,6 +105,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           12.0), // Ajuste o preenchimento interno aqui
                     ),
                     cursorColor: Colors.black,
+                  ), */
+                  TextField(
+                    keyboardType: TextInputType.name,
+                    controller: nicknameController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      labelText: 'Sobrenome',
+                      labelStyle: TextStyle(color: Colors.black),
+                      contentPadding: EdgeInsets.fromLTRB(12.0, 14.0, 12.0,
+                          12.0), // Ajuste o preenchimento interno aqui
+                    ),
+                    cursorColor: Colors.black,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'[a-z]')), // Permite apenas letras minúsculas
+                    ],
                   ),
                   const SizedBox(height: 10),
                   TextField(
