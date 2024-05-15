@@ -23,11 +23,13 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> with ValidationsMixin {
   bool _isPasswordVisible = false;
-  final bool _isPasswordStillVisible = false;
+  bool _isPasswordStillVisible = false;
 
   String nicknamErrorMessage = '';
   String cpfErrorMessage = '';
   String emailErrorMessage = '';
+  String passwordErrorMessage = '';
+  String passwordConfirmErrorMessage = '';
 
   bool isValid = true;
 
@@ -228,61 +230,120 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationsMixin {
                           style: TextStyle(color: Colors.red),
                         ),
                   const SizedBox(height: 10),
+
                   TextField(
                     controller: passwordController,
                     obscureText: !_isPasswordVisible,
                     decoration: InputDecoration(
                       labelText: 'Senha',
                       border: const OutlineInputBorder(),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _isPasswordVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _isPasswordVisible = !_isPasswordVisible;
-                          });
-                        },
-                      ),
                       focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                       ),
                       labelStyle: const TextStyle(color: Colors.black),
                       contentPadding:
                           const EdgeInsets.fromLTRB(12.0, 14.0, 12.0, 12.0),
+                      suffixIcon: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (isPasswordValid(passwordController.text))
+                            const Icon(Icons.verified, color: Colors.green),
+                          IconButton(
+                            icon: Icon(
+                              _isPasswordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _isPasswordVisible = !_isPasswordVisible;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                     cursorColor: Colors.black,
+                    onChanged: (value) {
+                      setState(() {
+                        passwordErrorMessage = !isPasswordValid(value)
+                            ? 'Não são permitidos menos de 6 caracteres!'
+                            : '';
+                      });
+                    },
                   ),
+
+                  const SizedBox(height: 8),
+                  passwordErrorMessage.isNotEmpty
+                      ? Text(
+                          passwordErrorMessage,
+                          style: const TextStyle(color: Colors.redAccent),
+                        )
+                      : const SizedBox(),
                   const SizedBox(height: 12),
                   TextField(
                     controller: confirmPasswordController,
-                    obscureText: !_isPasswordVisible,
+                    obscureText: !_isPasswordStillVisible,
                     decoration: InputDecoration(
                       labelText: 'Confirmar senha',
                       border: const OutlineInputBorder(),
-                      suffixIcon: IconButton(
+                      /* suffixIcon: IconButton(
                         icon: Icon(
-                          _isPasswordVisible
+                          _isPasswordStillVisible
                               ? Icons.visibility
                               : Icons.visibility_off,
                         ),
                         onPressed: () {
                           setState(() {
-                            _isPasswordVisible = !_isPasswordVisible;
+                            _isPasswordStillVisible = !_isPasswordStillVisible;
                           });
                         },
-                      ),
+                      ), */
                       focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                       ),
                       labelStyle: const TextStyle(color: Colors.black),
                       contentPadding:
                           const EdgeInsets.fromLTRB(12.0, 14.0, 12.0, 12.0),
+                      suffixIcon: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (isPasswordValid(confirmPasswordController.text))
+                            const Icon(Icons.verified, color: Colors.green),
+                          IconButton(
+                            icon: Icon(
+                              _isPasswordStillVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _isPasswordStillVisible =
+                                    !_isPasswordStillVisible;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                     cursorColor: Colors.black,
+                    onChanged: (value) {
+                      setState(() {
+                        passwordConfirmErrorMessage = !isPasswordValid(value)
+                            ? 'As senhas não coincidem!'
+                            : '';
+                      });
+                    },
                   ),
+                  const SizedBox(
+                      height:
+                          8), // Espaçamento entre o TextField e a mensagem de erro
+                  passwordConfirmErrorMessage.isNotEmpty
+                      ? Text(
+                          passwordConfirmErrorMessage,
+                          style: const TextStyle(color: Colors.redAccent),
+                        )
+                      : const SizedBox(),
                   const SizedBox(height: 30),
                   ElevatedButton(
                     onPressed: () async {
