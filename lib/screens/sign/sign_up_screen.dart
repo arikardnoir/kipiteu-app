@@ -1,8 +1,10 @@
 // ignore_for_file: avoid_print, unused_field, use_build_context_synchronously
 
+import 'package:cpf_cnpj_validator/cpf_validator.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:kipiteu_app/screens/initial/initial_screen.dart';
 import 'package:kipiteu_app/screens/sign/otp_screen.dart';
 
@@ -10,6 +12,7 @@ import 'package:kipiteu_app/screens/sign/sign_in_screen.dart';
 import 'package:kipiteu_app/services/google_services/google_sign_in_service/google_sign_in_service.dart';
 import 'package:kipiteu_app/services/otp_services.dart/send_otp_service.dart';
 import 'package:kipiteu_app/services/sign_up_services/sign_up_service.dart';
+import 'package:kipiteu_app/validations/validations_mixin.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -18,9 +21,15 @@ class SignUpScreen extends StatefulWidget {
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpScreenState extends State<SignUpScreen> with ValidationsMixin {
   bool _isPasswordVisible = false;
   final bool _isPasswordStillVisible = false;
+
+  String nicknamErrorMessage = '';
+  String cpfErrorMessage = '';
+  String emailErrorMessage = '';
+
+  bool isValid = true;
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController nicknameController = TextEditingController();
@@ -82,83 +91,142 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         borderSide: BorderSide(color: Colors.black),
                       ),
 
-                      labelText: 'Nome',
+                      labelText: 'Nome completo',
                       labelStyle: TextStyle(color: Colors.black),
                       contentPadding: EdgeInsets.fromLTRB(12.0, 14.0, 12.0,
                           12.0), // Ajuste o preenchimento interno aqui
                     ),
                     cursorColor: Colors.black,
                   ),
-                  const SizedBox(height: 10),
-                  /* TextField(
-                    keyboardType: TextInputType.name,
-                    controller: nicknameController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
+                  const SizedBox(height: 12),
 
-                      labelText: 'Sobrenome',
-                      labelStyle: TextStyle(color: Colors.black),
-                      contentPadding: EdgeInsets.fromLTRB(12.0, 14.0, 12.0,
-                          12.0), // Ajuste o preenchimento interno aqui
-                    ),
-                    cursorColor: Colors.black,
-                  ), */
                   TextField(
                     keyboardType: TextInputType.name,
                     controller: nicknameController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: nicknamErrorMessage.isNotEmpty
+                              ? Colors.red
+                              : Colors.black,
+                        ),
                       ),
-                      labelText: 'Sobrenome',
-                      labelStyle: TextStyle(color: Colors.black),
-                      contentPadding: EdgeInsets.fromLTRB(12.0, 14.0, 12.0,
-                          12.0), // Ajuste o preenchimento interno aqui
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: nicknamErrorMessage.isNotEmpty
+                              ? Colors.redAccent
+                              : Colors.black,
+                        ),
+                      ),
+                      labelText: 'Nome de usuário',
+                      labelStyle: TextStyle(
+                          color: nicknamErrorMessage.isNotEmpty
+                              ? Colors.redAccent
+                              : Colors.black),
+                      contentPadding:
+                          const EdgeInsets.fromLTRB(12.0, 14.0, 12.0, 12.0),
+                      suffixIcon: isLowerCase(nicknameController.text) &&
+                              nicknameController.text.isNotEmpty
+                          ? const Icon(Icons.verified_sharp,
+                              color: Colors.green)
+                          : null,
                     ),
+                    style: TextStyle(
+                        color: nicknamErrorMessage.isNotEmpty
+                            ? Colors.red
+                            : Colors.black),
                     cursorColor: Colors.black,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(
-                          RegExp(r'[a-z]')), // Permite apenas letras minúsculas
-                    ],
+                    onChanged: (value) {
+                      setState(() {
+                        nicknamErrorMessage = !isLowerCase(value)
+                            ? 'Apenas letras minúsculas são permitidas!'
+                            : '';
+                      });
+                    },
                   ),
+                  const SizedBox(
+                      height:
+                          8), // Espaçamento entre o TextField e a mensagem de erro
+                  nicknamErrorMessage.isNotEmpty
+                      ? Text(
+                          nicknamErrorMessage,
+                          style: const TextStyle(color: Colors.redAccent),
+                        )
+                      : const SizedBox(), // Mostra a mensagem de erro se houver, caso contrário, um SizedBox
+
                   const SizedBox(height: 10),
+
                   TextField(
-                    keyboardType: TextInputType.name,
+                    keyboardType: TextInputType.number,
                     controller: cpfController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                       ),
-
                       labelText: 'CPF',
-                      labelStyle: TextStyle(color: Colors.black),
-                      contentPadding: EdgeInsets.fromLTRB(12.0, 14.0, 12.0,
-                          12.0), // Ajuste o preenchimento interno aqui
+                      labelStyle: const TextStyle(color: Colors.black),
+                      contentPadding:
+                          const EdgeInsets.fromLTRB(12.0, 14.0, 12.0, 12.0),
+                      suffixIcon: CPFValidator.isValid(cpfController.text)
+                          ? const Icon(Icons.verified_sharp,
+                              color: Colors.green)
+                          : null,
                     ),
                     cursorColor: Colors.black,
+                    onChanged: (value) {
+                      setState(() {
+                        if (CPFValidator.isValid(value)) {
+                          cpfErrorMessage = '';
+                        } else {
+                          cpfErrorMessage = 'CPF inválido';
+                        }
+                      });
+                    },
                   ),
+                  const SizedBox(
+                      height:
+                          8), // Espaçamento entre o TextField e a mensagem de erro
+                  cpfErrorMessage.isNotEmpty
+                      ? Text(
+                          cpfErrorMessage,
+                          style: const TextStyle(color: Colors.red),
+                        )
+                      : const SizedBox(), // Mostra a mensagem de erro se houver, caso contrário, um SizedBox
+
                   const SizedBox(height: 10),
+
                   TextField(
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                       ),
-
                       labelText: 'Email',
-                      labelStyle: TextStyle(color: Colors.black),
-                      contentPadding: EdgeInsets.fromLTRB(12.0, 14.0, 12.0,
-                          12.0), // Ajuste o preenchimento interno aqui
+                      labelStyle: const TextStyle(color: Colors.black),
+                      contentPadding:
+                          const EdgeInsets.fromLTRB(12.0, 14.0, 12.0, 12.0),
+                      suffixIcon: EmailValidator.validate(emailController.text)
+                          ? const Icon(Icons.verified_sharp,
+                              color: Colors.green)
+                          : null,
                     ),
                     cursorColor: Colors.black,
+                    onChanged: (value) {
+                      setState(() {
+                        isValid = EmailValidator.validate(value);
+                      });
+                    },
                   ),
+                  const SizedBox(height: 8),
+                  isValid
+                      ? const SizedBox()
+                      : const Text(
+                          'Email inválido',
+                          style: TextStyle(color: Colors.red),
+                        ),
                   const SizedBox(height: 10),
                   TextField(
                     controller: passwordController,
