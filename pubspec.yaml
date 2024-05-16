@@ -69,6 +69,11 @@ flutter:
      - assets/images/6132028.jpg
      - assets/images/8071239.jpg
      - assets/images/numbercheck.jpg
+     - assets/icons/home_icons/logo.png
+     - assets/icons/home_icons/bottom/home.png
+     - assets/icons/home_icons/bottom/search.png
+     - assets/icons/home_icons/bottom/recipes.png
+     - assets/icons/home_icons/bottom/profile.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
