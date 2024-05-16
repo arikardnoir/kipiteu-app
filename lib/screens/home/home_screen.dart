@@ -44,34 +44,43 @@ class _HomeScreenState extends State<HomeScreen>
           Container(
             height: kToolbarHeight, // Use the same height as the AppBar
             color: Colors.transparent,
-            child: Row(
-              children: [
-                const Spacer(),
-                const Spacer(), // Pushes the logo to the center
-                IconButton(
-                  onPressed: () {},
-                  icon: Image.asset(
-                    'assets/icons/home_icons/logo.png',
-                    height: 40,
-                    width: 160,
+            child: SizedBox(
+              // Adicionando um Container para definir a largura
+              width: double.infinity, // Largura igual à largura da tela
+              child: Row(
+                children: [
+                  const Spacer(),
+                  const Spacer(), // Pushes the logo to the center
+                  IconButton(
+                    onPressed: () {},
+                    icon: Image.asset(
+                      'assets/icons/home_icons/logo.png',
+                      height: 40,
+                      width: 160,
+                    ),
                   ),
-                ),
-                const Spacer(), // Pushes the notifications icon to the right
-                IconButton(
-                  onPressed: () {
-                    // Add the action for the notifications icon here
-                  },
-                  icon: const Icon(Icons.notifications),
-                ),
-              ],
+                  const Spacer(), // Pushes the notifications icon to the right
+                  IconButton(
+                    onPressed: () {
+                      // Add the action for the notifications icon here
+                    },
+                    icon: Image.asset(
+                      'assets/icons/home_icons/top/notification_icon.png',
+                      width: 30,
+                      height: 30,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           const SizedBox(
-            height: 40,
+            height: 20,
           ),
-          /* SizedBox(
+          SizedBox(
             // Container que envolve o PageView e os indicadores
-            height: 300, // Defina uma altura específica aqui
+            height: 230, // Defina uma altura específica aqui
             child: PageView.builder(
               itemCount: _images.length,
               controller: _pageController,
@@ -97,36 +106,13 @@ class _HomeScreenState extends State<HomeScreen>
                 );
               },
             ),
-          ), */
-          SizedBox(
-      height: MediaQuery.of(context).size.height,
-      child: PageView.builder(
-        itemCount: _images.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Card(
-            margin: const EdgeInsets.all(10),
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                _images[index],
-                fit: BoxFit.cover,
-                width: MediaQuery.of(context).size.width, // Largura total da tela
-              ),
-            ),
-          );
-        },
-      ),
-          )
+          ),
           DotsIndicator(
             dotsCount: _images.length,
             position: _currentCard,
             decorator: DotsDecorator(
               color: Colors.grey, // Cor dos pontos não selecionados
-              activeColor: Colors.blue, // Cor do ponto selecionado
+              activeColor: Colors.redAccent, // Cor do ponto selecionado
               size: const Size.square(9.0),
               activeSize: const Size(18.0, 9.0),
               spacing: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -135,10 +121,69 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ),
           ),
+          const SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: 3, // Número de linhas de cards
+              itemBuilder: (context, index) {
+                return Container(
+                  height: 150, // Altura dos cards
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Card(
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              // Adicione ação ao tocar no card aqui, se necessário
+                            },
+                            child: Center(
+                              child: Text(
+                                'Card ${index * 2 + 1}',
+                                style: const TextStyle(fontSize: 18),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Card(
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              // Adicione ação ao tocar no card aqui, se necessário
+                            },
+                            child: Center(
+                              child: Text(
+                                'Card ${index * 2 + 2}',
+                                style: const TextStyle(fontSize: 18),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: Container(
-        height: 100.0,
+        height: 90.0,
         color: Colors.white,
         child: TabBar(
           controller: _tabController,
@@ -165,7 +210,7 @@ class _HomeScreenState extends State<HomeScreen>
   Tab _buildTab(String imagePath, String label, int index) {
     bool isSelected = index == _currentIndex;
     return Tab(
-      height: 200,
+      height: 90,
       icon: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -201,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen>
                   ? Colors.black87
                   : Colors
                       .grey, // Altera a cor do texto dependendo se estiver selecionado ou não
-              fontSize: 12,
+              fontSize: 10,
             ),
           ),
         ],
