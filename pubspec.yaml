@@ -73,12 +73,35 @@ flutter:
      - assets/icons/home_icons/logo.png
      - assets/icons/home_icons/bottom/home.png
      - assets/icons/home_icons/bottom/search.png
-     - assets/icons/home_icons/bottom/recipes.png
-     - assets/icons/home_icons/bottom/profile.png
+     - assets/icons/home_icons/bottom/prefs.png
+     - assets/icons/home_icons/bottom/user.png
      - assets/images/cards/food1.jpg
      - assets/images/cards/food2.jpg
      - assets/images/cards/food3.jpg
      - assets/icons/home_icons/top/notification_icon.png
+     - assets/images/cards/preferences_cards/imagem1.png
+     - assets/images/cards/preferences_cards/imagem2.png
+     - assets/images/costelas.jpg
+     - assets/images/cards/card1.png
+     - assets/images/cards/card2.png
+     - assets/images/cards/card3.png
+     - assets/images/cards/card4.png
+     - assets/images/cards/card5.png
+     - assets/images/cards/card6.png
+     - assets/images/cards/card7.png
+     - assets/images/cards/card8.png
+     - assets/icons/account_icons/edit.png
+     - assets/icons/account_icons/talk.png
+     - assets/icons/account_icons/asks.png
+     - assets/icons/account_icons/payment.png
+     - assets/icons/account_icons/notify.png
+     - assets/icons/account_icons/personal.png
+     - assets/icons/account_icons/legal.png
+     - assets/icons/account_icons/safety.png
+     - assets/icons/account_icons/settings.png
+     - assets/icons/account_icons/delete.png
+     - assets/icons/account_icons/exit.png
+     - assets/icons/account_icons/ring.png
 
 
 

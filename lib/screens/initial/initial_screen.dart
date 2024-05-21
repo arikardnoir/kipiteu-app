@@ -134,9 +134,9 @@ class _InitialScreenState extends State<InitialScreen> {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) =>
-                              const HomeScreen(), //change to SignIn Screen when its done
-                        ),
+                            builder: (context) =>
+                                const HomeScreen() //change to SignIn Screen when its done
+                            ),
                       );
                     },
                     style: ElevatedButton.styleFrom(

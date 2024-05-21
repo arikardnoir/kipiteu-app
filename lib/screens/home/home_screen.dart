@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:kipiteu_app/screens/home/account_screen.dart';
+import 'package:kipiteu_app/screens/home/search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -8,85 +10,152 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
-  final PageController _pageController = PageController(initialPage: 0);
-  late TabController _tabController;
-  int _currentIndex = 0;
-  int _currentCard = 0;
-  //int cardsPerRow = 5;
-
-  final List<String> _images = [
+class _HomeScreenState extends State<HomeScreen> {
+  late PageController _slidePageController;
+  int _currentSlide = 0;
+  final List<String> _slideImages = [
     'assets/images/cards/food1.jpg',
     'assets/images/cards/food2.jpg',
     'assets/images/cards/food3.jpg',
   ];
 
+  /*  final List<String> _cardData = [
+    'assets/images/cards/card1.png',
+    'assets/images/cards/card2.png',
+  ];
+ */
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    _slidePageController = PageController();
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _slidePageController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const SizedBox(height: 30),
-          Container(
-            height: kToolbarHeight, // Use the same height as the AppBar
-            color: Colors.transparent,
-            child: SizedBox(
-              // Adicionando um Container para definir a largura
-              width: double.infinity, // Largura igual à largura da tela
-              child: Row(
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        body: TabBarView(
+          children: [
+            _buildHomeScreen(),
+            const SearchScreen(),
+            Container(
+              color: Colors.white,
+              child: const Icon(Icons.home),
+            ),
+            const AccountScreen(),
+          ],
+        ),
+        bottomNavigationBar: TabBar(
+          indicator: null,
+          tabs: [
+            Tab(
+              height: 80,
+              icon: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Spacer(),
-                  const Spacer(), // Pushes the logo to the center
-                  IconButton(
-                    onPressed: () {},
-                    icon: Image.asset(
-                      'assets/icons/home_icons/logo.png',
-                      height: 40,
-                      width: 160,
-                    ),
+                  SizedBox(
+                    width: 30,
+                    height: 30,
+                    child:
+                        Image.asset('assets/icons/home_icons/bottom/home.png'),
                   ),
-                  const Spacer(), // Pushes the notifications icon to the right
-                  IconButton(
-                    onPressed: () {
-                      // Add the action for the notifications icon here
-                    },
-                    icon: Image.asset(
-                      'assets/icons/home_icons/top/notification_icon.png',
-                      width: 30,
-                      height: 30,
-                      color: Colors.black,
-                    ),
-                  ),
+                  const Text('Home', style: TextStyle(fontSize: 12)),
                 ],
               ),
             ),
+            Tab(
+              height: 80,
+              icon: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 30,
+                    height: 30,
+                    child: Image.asset(
+                      'assets/icons/home_icons/bottom/search.png',
+                    ),
+                  ),
+                  const Text('Search', style: TextStyle(fontSize: 12)),
+                ],
+              ),
+            ),
+            Tab(
+              height: 80,
+              icon: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 30,
+                    height: 30,
+                    child:
+                        Image.asset('assets/icons/home_icons/bottom/prefs.png'),
+                  ),
+                  const Text('Prefs', style: TextStyle(fontSize: 12)),
+                ],
+              ),
+            ),
+            Tab(
+              height: 80,
+              icon: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 30,
+                    height: 30,
+                    child:
+                        Image.asset('assets/icons/home_icons/bottom/user.png'),
+                  ),
+                  const Text('User', style: TextStyle(fontSize: 12)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHomeScreen() {
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              IconButton(
+                color: Colors.white,
+                icon: Image.asset(
+                  'assets/icons/account_icons/ring.png',
+                  width: 20,
+                  height: 20,
+                ),
+                onPressed: () {},
+              ),
+            ],
           ),
-          const SizedBox(
-            height: 20,
-          ),
+        ],
+      ),
+      body: Column(
+        children: [
           SizedBox(
-            // Container que envolve o PageView e os indicadores
-            height: 230, // Defina uma altura específica aqui
+            height: 300,
             child: PageView.builder(
-              itemCount: _images.length,
-              controller: _pageController,
+              itemCount: _slideImages.length,
+              controller: _slidePageController,
               onPageChanged: (int page) {
                 setState(() {
-                  _currentCard = page;
+                  _currentSlide = page;
                 });
               },
               itemBuilder: (BuildContext context, int index) {
@@ -99,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen>
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image.asset(
-                      _images[index],
+                      _slideImages[index],
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -108,11 +177,11 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ),
           DotsIndicator(
-            dotsCount: _images.length,
-            position: _currentCard,
+            dotsCount: _slideImages.length,
+            position: _currentSlide,
             decorator: DotsDecorator(
-              color: Colors.grey, // Cor dos pontos não selecionados
-              activeColor: Colors.redAccent, // Cor do ponto selecionado
+              color: Colors.grey,
+              activeColor: Colors.redAccent,
               size: const Size.square(9.0),
               activeSize: const Size(18.0, 9.0),
               spacing: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -122,131 +191,13 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ),
           const SizedBox(
-            height: 10,
+            height: 95,
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 3, // Número de linhas de cards
-              itemBuilder: (context, index) {
-                return Container(
-                  height: 150, // Altura dos cards
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Card(
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              // Adicione ação ao tocar no card aqui, se necessário
-                            },
-                            child: Center(
-                              child: Text(
-                                'Card ${index * 2 + 1}',
-                                style: const TextStyle(fontSize: 18),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Card(
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              // Adicione ação ao tocar no card aqui, se necessário
-                            },
-                            child: Center(
-                              child: Text(
-                                'Card ${index * 2 + 2}',
-                                style: const TextStyle(fontSize: 18),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: Container(
-        height: 90.0,
-        color: Colors.white,
-        child: TabBar(
-          controller: _tabController,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          indicator:
-              const BoxDecoration(), // Define um BoxDecoration vazio para remover a barra de seleção
-          tabs: [
-            _buildTab('assets/icons/home_icons/bottom/home.png', 'Home', 0),
-            _buildTab('assets/icons/home_icons/bottom/search.png', 'Buscar', 1),
-            _buildTab(
-                'assets/icons/home_icons/bottom/recipes.png', 'Receitas', 2),
-            _buildTab(
-                'assets/icons/home_icons/bottom/profile.png', 'Perfil', 3),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Tab _buildTab(String imagePath, String label, int index) {
-    bool isSelected = index == _currentIndex;
-    return Tab(
-      height: 90,
-      icon: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            color: isSelected ? Colors.white : Colors.transparent,
-            height: 50,
-            width: 50,
-            padding: const EdgeInsets.all(8.0),
-            child: isSelected
-                ? ColorFiltered(
-                    colorFilter: const ColorFilter.mode(
-                      Colors.black87,
-                      BlendMode.srcATop,
-                    ),
-                    child: Image.asset(
-                      imagePath,
-                      width: 60,
-                      height: 60,
-                      color: Colors.black87,
-                    ),
-                  )
-                : Image.asset(
-                    imagePath,
-                    width: 60,
-                    height: 60,
-                    color: Colors.grey,
-                  ),
-          ),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected
-                  ? Colors.black87
-                  : Colors
-                      .grey, // Altera a cor do texto dependendo se estiver selecionado ou não
-              fontSize: 10,
+          const Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[Row()],
+              ),
             ),
           ),
         ],
@@ -254,3 +205,88 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /* Container(
+            color: Colors.red,
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 20.0),
+            child: Column(
+              children: [
+                const CircleAvatar(
+                  radius: 80,
+                  backgroundImage:
+                      NetworkImage('https://via.placeholder.com/150'),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  'Nome completo',
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+                const SizedBox(height: 5),
+                const Text(
+                  'Email',
+                  style: TextStyle(fontSize: 20, color: Colors.white70),
+                ),
+                const SizedBox(height: 5),
+                const SizedBox(height: 5),
+                TextButton.icon(
+                  onPressed: () {
+                    // Ação ao clicar em "Edit"
+                  },
+                  icon: const Icon(Icons.edit, color: Colors.white),
+                  label: const Text('Editar',
+                      style: TextStyle(color: Colors.white)),
+                ),
+              ],
+            ),
+          ), */
+
+
+
+
+
+
+
+
+
+
+
+           /* Positioned(
+                right: 10,
+                top: 10,
+                child: Container(
+                  padding: const EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  constraints: const BoxConstraints(
+                    minWidth: 16,
+                    minHeight: 16,
+                  ),
+                  child: const Text(
+                    '23',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ), */
