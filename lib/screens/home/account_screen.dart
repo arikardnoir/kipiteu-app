@@ -19,8 +19,8 @@ class AccountScreen extends StatelessWidget {
                 color: Colors.white,
                 icon: Image.asset(
                   'assets/icons/account_icons/ring.png',
-                  width: 20,
-                  height: 20,
+                  width: 30,
+                  height: 30,
                 ),
                 onPressed: () {},
               ),
@@ -35,40 +35,26 @@ class AccountScreen extends StatelessWidget {
             child: Container(
               color: Colors.grey,
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 20.0),
-              child: Column(
+              padding: const EdgeInsets.symmetric(vertical: 60.0),
+              child: const Column(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 80,
                   ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'Nome completo',
+                  SizedBox(height: 10),
+                  Text(
+                    'Nome',
                     style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  const SizedBox(height: 5),
-                  const Text(
+                  SizedBox(height: 5),
+                  Text(
                     'Email',
                     style: TextStyle(fontSize: 20, color: Colors.white70),
                   ),
-                  const SizedBox(height: 5),
-                  TextButton.icon(
-                    onPressed: () {
-                      // Ação ao clicar em "Editar"
-                    },
-                    icon: Image.asset(
-                      'assets/icons/account_icons/edit.png',
-                      width: 20,
-                      height: 20,
-                    ),
-                    label: const Text(
-                      'Editar',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
+                  SizedBox(height: 5),
                 ],
               ),
             ),
@@ -87,6 +73,9 @@ class AccountScreen extends StatelessWidget {
                   ),
                 ),
                 ListTile(
+                  trailing: const Icon(
+                    Icons.arrow_forward,
+                  ),
                   leading: Image.asset(
                     'assets/icons/account_icons/payment.png',
                     width: 20,
@@ -101,6 +90,9 @@ class AccountScreen extends StatelessWidget {
                   },
                 ),
                 ListTile(
+                  trailing: const Icon(
+                    Icons.arrow_forward,
+                  ),
                   leading: Image.asset(
                     'assets/icons/account_icons/notify.png',
                     width: 20,
@@ -115,6 +107,9 @@ class AccountScreen extends StatelessWidget {
                   },
                 ),
                 ListTile(
+                  trailing: const Icon(
+                    Icons.arrow_forward,
+                  ),
                   leading: Image.asset(
                     'assets/icons/account_icons/personal.png',
                     width: 20,
@@ -128,7 +123,7 @@ class AccountScreen extends StatelessWidget {
                     // Ação ao clicar em "Personal information"
                   },
                 ),
-                const Divider(),
+                //const Divider(),
                 const Padding(
                   padding: EdgeInsets.all(16.0),
                   child: Text(
@@ -140,6 +135,9 @@ class AccountScreen extends StatelessWidget {
                   ),
                 ),
                 ListTile(
+                  trailing: const Icon(
+                    Icons.arrow_forward,
+                  ),
                   leading: Image.asset(
                     'assets/icons/account_icons/asks.png',
                     width: 20,
@@ -154,6 +152,9 @@ class AccountScreen extends StatelessWidget {
                   },
                 ),
                 ListTile(
+                  trailing: const Icon(
+                    Icons.arrow_forward,
+                  ),
                   leading: Image.asset(
                     'assets/icons/account_icons/talk.png',
                     width: 20,
@@ -164,7 +165,7 @@ class AccountScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
-                const Divider(),
+                //const Divider(),
                 const Padding(
                   padding: EdgeInsets.all(16.0),
                   child: Text(
@@ -176,6 +177,9 @@ class AccountScreen extends StatelessWidget {
                   ),
                 ),
                 ListTile(
+                  trailing: const Icon(
+                    Icons.arrow_forward,
+                  ),
                   leading: Image.asset(
                     'assets/icons/account_icons/legal.png',
                     width: 20,
@@ -190,6 +194,9 @@ class AccountScreen extends StatelessWidget {
                   },
                 ),
                 ListTile(
+                  trailing: const Icon(
+                    Icons.arrow_forward,
+                  ),
                   leading: Image.asset(
                     'assets/icons/account_icons/safety.png',
                     width: 20,

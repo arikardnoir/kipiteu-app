@@ -19,11 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
     'assets/images/cards/food3.jpg',
   ];
 
-  /*  final List<String> _cardData = [
-    'assets/images/cards/card1.png',
-    'assets/images/cards/card2.png',
-  ];
- */
   @override
   void initState() {
     super.initState();
@@ -53,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         bottomNavigationBar: TabBar(
-          indicator: null,
+          indicatorColor: Colors.white,
           tabs: [
             Tab(
               height: 80,
@@ -63,10 +58,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     width: 30,
                     height: 30,
-                    child:
-                        Image.asset('assets/icons/home_icons/bottom/home.png'),
+                    child: Image.asset(
+                      'assets/icons/home_icons/bottom/home.png',
+                      color: Colors.grey,
+                    ),
                   ),
-                  const Text('Home', style: TextStyle(fontSize: 12)),
+                  const Text(
+                    'Home',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -80,9 +83,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 30,
                     child: Image.asset(
                       'assets/icons/home_icons/bottom/search.png',
+                      color: Colors.grey,
                     ),
                   ),
-                  const Text('Search', style: TextStyle(fontSize: 12)),
+                  const Text(
+                    'Procurar',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -94,10 +104,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     width: 30,
                     height: 30,
-                    child:
-                        Image.asset('assets/icons/home_icons/bottom/prefs.png'),
+                    child: Image.asset(
+                      'assets/icons/home_icons/bottom/prefs.png',
+                      color: Colors.grey,
+                    ),
                   ),
-                  const Text('Prefs', style: TextStyle(fontSize: 12)),
+                  const Text('Metas',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey,
+                      )),
                 ],
               ),
             ),
@@ -109,10 +125,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     width: 30,
                     height: 30,
-                    child:
-                        Image.asset('assets/icons/home_icons/bottom/user.png'),
+                    child: Image.asset(
+                      'assets/icons/home_icons/bottom/user.png',
+                      color: Colors.grey,
+                    ),
                   ),
-                  const Text('User', style: TextStyle(fontSize: 12)),
+                  const Text(
+                    'Eu',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -123,6 +147,49 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildHomeScreen() {
+    final List<Map<String, String>> cardData = [
+      {
+        'title': 'Card 1',
+        'image': 'assets/images/cards/card1.png',
+      },
+      {
+        'title': 'Card 2',
+        'image': 'assets/images/cards/card2.png',
+      },
+      {
+        'title': 'Card 3',
+        'image': 'assets/images/cards/card3.png',
+      },
+      {
+        'title': 'Card 1',
+        'image': 'assets/images/cards/card1.png',
+      },
+      {
+        'title': 'Card 2',
+        'image': 'assets/images/cards/card2.png',
+      },
+      {
+        'title': 'Card 3',
+        'image': 'assets/images/cards/card3.png',
+      },
+      {
+        'title': 'Card 1',
+        'image': 'assets/images/cards/card1.png',
+      },
+      {
+        'title': 'Card 2',
+        'image': 'assets/images/cards/card2.png',
+      },
+      {
+        'title': 'Card 2',
+        'image': 'assets/images/cards/card2.png',
+      },
+      {
+        'title': 'Card 2',
+        'image': 'assets/images/cards/card2.png',
+      },
+    ];
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -130,20 +197,24 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         actions: [
-          Stack(
-            alignment: Alignment.center,
+          Row(
             children: [
-              IconButton(
-                color: Colors.white,
-                icon: Image.asset(
-                  'assets/icons/account_icons/ring.png',
-                  width: 20,
-                  height: 20,
-                ),
-                onPressed: () {},
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  IconButton(
+                    color: Colors.white,
+                    icon: Image.asset(
+                      'assets/icons/account_icons/ring.png',
+                      width: 30,
+                      height: 30,
+                    ),
+                    onPressed: () {},
+                  ),
+                ],
               ),
             ],
-          ),
+          )
         ],
       ),
       body: Column(
@@ -191,13 +262,52 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           const SizedBox(
-            height: 95,
+            height: 50,
           ),
-          const Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[Row()],
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.all(10),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 3 / 2,
               ),
+              itemCount: cardData.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(10),
+                        ),
+                        child: Image.asset(
+                          cardData[index]['image']!,
+                          fit: BoxFit.cover,
+                          height: 50,
+                          width: 50,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                          cardData[index]['title']!,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
         ],
@@ -216,46 +326,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 
-
-
-
- /* Container(
-            color: Colors.red,
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 20.0),
-            child: Column(
-              children: [
-                const CircleAvatar(
-                  radius: 80,
-                  backgroundImage:
-                      NetworkImage('https://via.placeholder.com/150'),
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  'Nome completo',
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-                const SizedBox(height: 5),
-                const Text(
-                  'Email',
-                  style: TextStyle(fontSize: 20, color: Colors.white70),
-                ),
-                const SizedBox(height: 5),
-                const SizedBox(height: 5),
-                TextButton.icon(
-                  onPressed: () {
-                    // Ação ao clicar em "Edit"
-                  },
-                  icon: const Icon(Icons.edit, color: Colors.white),
-                  label: const Text('Editar',
-                      style: TextStyle(color: Colors.white)),
-                ),
-              ],
-            ),
-          ), */
 
 
 
