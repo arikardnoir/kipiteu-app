@@ -80,7 +80,7 @@ flutter:
      - assets/images/cards/food3.jpg
      - assets/icons/home_icons/top/notification_icon.png
  
-     - assets/images/costelas.jpg
+ 
      - assets/icons/home_icons/center/avc.png
      - assets/icons/home_icons/center/diabetes.png
      - assets/icons/home_icons/center/heart.png
@@ -105,6 +105,8 @@ flutter:
      - assets/images/cards/preferences_cards/almoco.png
      - assets/images/cards/preferences_cards/jantar.png
      - assets/images/cards/preferences_cards/sobremesa.png
+     - assets/images/cards/preferences_cards/ads1.jpg
+     - assets/images/cards/preferences_cards/pops1.jpg
 
 
 
