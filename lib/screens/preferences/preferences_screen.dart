@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kipiteu_app/screens/home/categories_screen.dart';
 
 class PreferencesScreen extends StatefulWidget {
   const PreferencesScreen({super.key});
@@ -277,7 +278,7 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
               height: 320,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: _cardPops.length,
+                itemCount: _cardFasts.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -505,40 +506,49 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
     return Expanded(
       child: Column(
         children: [
-          Card(
-            color: Colors.transparent,
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  bottom: 0.1), // Reduzindo ainda mais o espaço inferior
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(10),
+          InkWell(
+            child: Card(
+              color: Colors.transparent,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    bottom: 0.1), // Reduzindo ainda mais o espaço inferior
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(10),
+                      ),
+                      child: Image.asset(
+                        card['image']!,
+                        fit: BoxFit.contain,
+                        height: 90,
+                        width: 90,
+                      ),
                     ),
-                    child: Image.asset(
-                      card['image']!,
-                      fit: BoxFit.contain,
-                      height: 90,
-                      width: 90,
+                    Text(
+                      card['title']!,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
                     ),
-                  ),
-                  Text(
-                    card['title']!,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const CategoryScreen(),
+                ),
+              );
+            },
           ),
         ],
       ),
