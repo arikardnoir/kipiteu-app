@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:kipiteu_app/screens/home/account_screen.dart';
-import 'package:kipiteu_app/screens/home/goals_screen.dart';
-import 'package:kipiteu_app/screens/home/search_screen.dart';
+import 'package:kipiteu_app/screens/home/my_goals_screen.dart';
+
 import 'package:kipiteu_app/screens/preferences/preferences_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -38,12 +38,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 3,
       child: Scaffold(
         body: TabBarView(
           children: [
             _buildHomeScreen(),
-            const SearchScreen(),
             const GoalsScreen(),
             const AccountScreen(),
           ],
@@ -66,29 +65,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const Text(
                     'Home',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Tab(
-              height: 80,
-              icon: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: Image.asset(
-                      'assets/icons/home_icons/bottom/search.png',
-                      color: Colors.grey,
-                    ),
-                  ),
-                  const Text(
-                    'Procurar',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.grey,
