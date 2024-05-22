@@ -21,6 +21,7 @@ class AccountScreen extends StatelessWidget {
                   'assets/icons/account_icons/ring.png',
                   width: 30,
                   height: 30,
+                  color: Colors.redAccent,
                 ),
                 onPressed: () {},
               ),

@@ -1,7 +1,11 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:kipiteu_app/screens/home/account_screen.dart';
+import 'package:kipiteu_app/screens/home/goals_screen.dart';
 import 'package:kipiteu_app/screens/home/search_screen.dart';
+import 'package:kipiteu_app/screens/preferences/preferences_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,9 +18,9 @@ class _HomeScreenState extends State<HomeScreen> {
   late PageController _slidePageController;
   int _currentSlide = 0;
   final List<String> _slideImages = [
-    'assets/images/cards/food1.jpg',
     'assets/images/cards/food2.jpg',
     'assets/images/cards/food3.jpg',
+    'assets/images/cards/food1.jpg',
   ];
 
   @override
@@ -40,10 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             _buildHomeScreen(),
             const SearchScreen(),
-            Container(
-              color: Colors.white,
-              child: const Icon(Icons.home),
-            ),
+            const GoalsScreen(),
             const AccountScreen(),
           ],
         ),
@@ -149,44 +150,76 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildHomeScreen() {
     final List<Map<String, String>> cardData = [
       {
-        'title': 'Card 1',
-        'image': 'assets/images/cards/card1.png',
+        'title': 'Diabetes',
+        'image': 'assets/icons/home_icons/center/diabetes.png',
       },
       {
-        'title': 'Card 2',
-        'image': 'assets/images/cards/card2.png',
+        'title': 'Perder peso',
+        'image': 'assets/icons/home_icons/center/lessweight.png',
       },
       {
-        'title': 'Card 3',
-        'image': 'assets/images/cards/card3.png',
+        'title': 'Bebês',
+        'image': 'assets/icons/home_icons/center/baby.png',
       },
       {
-        'title': 'Card 1',
-        'image': 'assets/images/cards/card1.png',
+        'title': 'AVC',
+        'image': 'assets/icons/home_icons/center/avc.png',
       },
       {
-        'title': 'Card 2',
-        'image': 'assets/images/cards/card2.png',
+        'title': 'Sem glúten',
+        'image': 'assets/icons/home_icons/center/gluten.png',
       },
       {
-        'title': 'Card 3',
-        'image': 'assets/images/cards/card3.png',
+        'title': 'Ganhar peso',
+        'image': 'assets/icons/home_icons/center/moreweight.png',
       },
       {
-        'title': 'Card 1',
-        'image': 'assets/images/cards/card1.png',
+        'title': 'Vegetariano',
+        'image': 'assets/icons/home_icons/center/vegan.png',
       },
       {
-        'title': 'Card 2',
-        'image': 'assets/images/cards/card2.png',
+        'title': 'Cardíacos',
+        'image': 'assets/icons/home_icons/center/heart.png',
       },
       {
-        'title': 'Card 2',
-        'image': 'assets/images/cards/card2.png',
+        'title': 'Sem glúten',
+        'image': 'assets/icons/home_icons/center/gluten.png',
       },
       {
-        'title': 'Card 2',
-        'image': 'assets/images/cards/card2.png',
+        'title': 'Ganhar peso',
+        'image': 'assets/icons/home_icons/center/moreweight.png',
+      },
+      {
+        'title': 'Vegetariano',
+        'image': 'assets/icons/home_icons/center/vegan.png',
+      },
+      {
+        'title': 'Cardíacos',
+        'image': 'assets/icons/home_icons/center/heart.png',
+      },
+      {
+        'title': 'Sem glúten',
+        'image': 'assets/icons/home_icons/center/gluten.png',
+      },
+      {
+        'title': 'Ganhar peso',
+        'image': 'assets/icons/home_icons/center/moreweight.png',
+      },
+      {
+        'title': 'Vegetariano',
+        'image': 'assets/icons/home_icons/center/vegan.png',
+      },
+      {
+        'title': 'Cardíacos',
+        'image': 'assets/icons/home_icons/center/heart.png',
+      },
+      {
+        'title': 'Sem glúten',
+        'image': 'assets/icons/home_icons/center/gluten.png',
+      },
+      {
+        'title': 'Ganhar peso',
+        'image': 'assets/icons/home_icons/center/moreweight.png',
       },
     ];
 
@@ -208,6 +241,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       'assets/icons/account_icons/ring.png',
                       width: 30,
                       height: 30,
+                      color: Colors.redAccent,
                     ),
                     onPressed: () {},
                   ),
@@ -220,7 +254,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         children: [
           SizedBox(
-            height: 300,
+            height: 210,
             child: PageView.builder(
               itemCount: _slideImages.length,
               controller: _slidePageController,
@@ -262,49 +296,70 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           const SizedBox(
-            height: 50,
+            height: 30,
           ),
           Expanded(
             child: GridView.builder(
               padding: const EdgeInsets.all(10),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: 3, // Definindo 3 colunas
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                childAspectRatio: 3 / 2,
+                childAspectRatio: 1 / 1,
               ),
               itemCount: cardData.length,
               itemBuilder: (context, index) {
-                return Card(
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
+                return Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {
+                      // Adicione aqui o código para a ação desejada ao clicar no card
+                      print("Card ${cardData[index]['title']} clicked!");
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const PreferencesScreen(),
+                        ),
+                      );
+                    },
                     borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(10),
-                        ),
-                        child: Image.asset(
-                          cardData[index]['image']!,
-                          fit: BoxFit.cover,
-                          height: 50,
-                          width: 50,
-                        ),
+                    child: Card(
+                      color: Colors.white,
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          cardData[index]['title']!,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(
+                            height: 10,
                           ),
-                        ),
+                          ClipRRect(
+                            borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(10),
+                            ),
+                            child: Image.asset(
+                              cardData[index]['image']!,
+                              fit: BoxFit.cover,
+                              height:
+                                  60, // Ajuste para reduzir o tamanho da imagem
+                              width: 60,
+                              color: Colors.black,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(
+                              cardData[index]['title']!,
+                              style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 );
               },
