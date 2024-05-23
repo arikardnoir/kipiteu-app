@@ -5,7 +5,7 @@ class GoalsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, String>> cardData = [
+    /*  final List<Map<String, String>> cardData = [
       {
         'title': 'Diabetes',
         'image': 'assets/icons/home_icons/center/diabetes.png',
@@ -38,43 +38,91 @@ class GoalsScreen extends StatelessWidget {
         'title': 'Doenças Cardíacas',
         'image': 'assets/icons/home_icons/center/heart.png',
       },
-    ];
+    ]; */
 
     TextEditingController searchController = TextEditingController();
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        actions: [
-          const SizedBox(
-            width: 40,
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          actions: [
+            Row(
+              children: [
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    IconButton(
+                      color: Colors.white,
+                      icon: Image.asset(
+                        'assets/icons/account_icons/ring.png',
+                        width: 30,
+                        height: 30,
+                        color: Colors.redAccent,
+                      ),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(2.0),
               child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.7,
-                child: TextField(
-                  controller: searchController,
-                  cursorColor: Colors.black,
-                  decoration: InputDecoration(
-                    suffixIcon: const Icon(Icons.search),
-                    hintText: 'Procurar...',
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(31),
-                        borderSide: const BorderSide(color: Colors.black)),
+                width: MediaQuery.of(context).size.width * 0.95,
+                child: Card(
+                  color: Colors.white,
+                  elevation: 6,
+                  child: TextField(
+                    controller: searchController,
+                    cursorColor: Colors.black,
+                    decoration: InputDecoration(
+                      suffixIcon: const Icon(Icons.search),
+                      hintText: '  Procurar...',
+                      contentPadding: const EdgeInsets.all(9),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(31),
+                          borderSide: BorderSide.none),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(
-            width: 40,
-          ),
-        ],
-      ),
-      body: Center(
-        child: Column(children: [
+          ],
+        ));
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* /* children: [
           const SizedBox(
             height: 100,
           ),
@@ -130,9 +178,5 @@ class GoalsScreen extends StatelessWidget {
                 );
               },
             ),
-          ),
-        ]),
-      ),
-    );
-  }
-}
+          ), */
+        ]), */

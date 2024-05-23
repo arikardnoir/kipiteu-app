@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kipiteu_app/screens/recipes/recipe_screen.dart';
 
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key});
@@ -19,6 +20,7 @@ class CategoryScreen extends StatelessWidget {
     final TextEditingController searchController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -27,24 +29,23 @@ class CategoryScreen extends StatelessWidget {
         ),
         title: Row(
           children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.9,
+            Padding(
+              padding: const EdgeInsets.all(1.0),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.65,
+                child: Card(
+                  color: Colors.white,
+                  elevation: 6,
                   child: TextField(
                     controller: searchController,
                     cursorColor: Colors.black,
                     decoration: InputDecoration(
                       suffixIcon: const Icon(Icons.search),
-                      hintText: 'Procurar...',
-                      contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 20),
+                      hintText: '  Procurar...',
+                      contentPadding: const EdgeInsets.all(9),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(31),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
+                          borderRadius: BorderRadius.circular(31),
+                          borderSide: BorderSide.none),
                     ),
                   ),
                 ),
@@ -100,18 +101,27 @@ class CategoryScreen extends StatelessWidget {
                           SizedBox(width: 170),
                         ],
                       ),
-                      ClipRRect(
-                        borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(10),
-                          bottom: Radius.circular(10),
+                      InkWell(
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(10),
+                            bottom: Radius.circular(10),
+                          ),
+                          child: Image.asset(
+                            cardLasts[index]['image'] ??
+                                'assets/default_image.png',
+                            fit: BoxFit.cover,
+                            height: 180,
+                            width: 380,
+                          ),
                         ),
-                        child: Image.asset(
-                          cardLasts[index]['image'] ??
-                              'assets/default_image.png',
-                          fit: BoxFit.cover,
-                          height: 180,
-                          width: 380,
-                        ),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const RecipeScreen(),
+                            ),
+                          );
+                        },
                       ),
                       const SizedBox(height: 8),
                       Row(
@@ -191,7 +201,7 @@ class CategoryScreen extends StatelessWidget {
         return Icon(
           index < rating ? Icons.star : Icons.star_border,
           size: 14,
-          color: Colors.amber,
+          color: Colors.redAccent,
         );
       }),
     );

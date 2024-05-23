@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kipiteu_app/screens/home/categories_screen.dart';
+import 'package:kipiteu_app/screens/recipes/recipe_screen.dart';
 
 class PreferencesScreen extends StatefulWidget {
   const PreferencesScreen({super.key});
@@ -70,24 +70,23 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
         ),
         title: Row(
           children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.9,
+            Padding(
+              padding: const EdgeInsets.all(1.0),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.65,
+                child: Card(
+                  color: Colors.white,
+                  elevation: 6,
                   child: TextField(
                     controller: searchController,
                     cursorColor: Colors.black,
                     decoration: InputDecoration(
                       suffixIcon: const Icon(Icons.search),
-                      hintText: 'Procurar...',
-                      contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 20),
+                      hintText: '  Procurar...',
+                      contentPadding: const EdgeInsets.all(9),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(31),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
+                          borderRadius: BorderRadius.circular(31),
+                          borderSide: BorderSide.none),
                     ),
                   ),
                 ),
@@ -197,12 +196,25 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
                               top: Radius.circular(10),
                               bottom: Radius.circular(10),
                             ),
-                            child: Image.asset(
-                              _cardPops[index]['image'] ??
-                                  'assets/default_image.png',
-                              fit: BoxFit.cover,
-                              height: 180,
-                              width: 380,
+                            child: Stack(
+                              children: [
+                                Image.asset(
+                                  _cardPops[index]['image'] ??
+                                      'assets/default_image.png',
+                                  fit: BoxFit.cover,
+                                  height: 180,
+                                  width: 380,
+                                ),
+                                const Positioned(
+                                  bottom: 5,
+                                  right: 5,
+                                  child: Icon(
+                                    Icons.lock,
+                                    color: Colors.redAccent,
+                                    size: 24,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -308,12 +320,25 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
                               top: Radius.circular(10),
                               bottom: Radius.circular(10),
                             ),
-                            child: Image.asset(
-                              _cardFasts[index]['image'] ??
-                                  'assets/default_image.png',
-                              fit: BoxFit.cover,
-                              height: 180,
-                              width: 380,
+                            child: Stack(
+                              children: [
+                                Image.asset(
+                                  _cardFasts[index]['image'] ??
+                                      'assets/default_image.png',
+                                  fit: BoxFit.cover,
+                                  height: 180,
+                                  width: 380,
+                                ),
+                                const Positioned(
+                                  bottom: 5,
+                                  right: 5,
+                                  child: Icon(
+                                    Icons.lock,
+                                    color: Colors.redAccent,
+                                    size: 24,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -419,12 +444,25 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
                               top: Radius.circular(10),
                               bottom: Radius.circular(10),
                             ),
-                            child: Image.asset(
-                              _cardLasts[index]['image'] ??
-                                  'assets/default_image.png',
-                              fit: BoxFit.cover,
-                              height: 180,
-                              width: 380,
+                            child: Stack(
+                              children: [
+                                Image.asset(
+                                  _cardLasts[index]['image'] ??
+                                      'assets/default_image.png',
+                                  fit: BoxFit.cover,
+                                  height: 180,
+                                  width: 380,
+                                ),
+                                const Positioned(
+                                  bottom: 5,
+                                  right: 5,
+                                  child: Icon(
+                                    Icons.lock,
+                                    color: Colors.redAccent,
+                                    size: 24,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -545,7 +583,7 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const CategoryScreen(),
+                  builder: (context) => const RecipeScreen(),
                 ),
               );
             },
@@ -562,7 +600,7 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
         return Icon(
           index < rating ? Icons.star : Icons.star_border,
           size: 14,
-          color: Colors.amber,
+          color: Colors.redAccent,
         );
       }),
     );

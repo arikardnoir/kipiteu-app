@@ -40,6 +40,7 @@ class AccountScreen extends StatelessWidget {
               child: const Column(
                 children: [
                   CircleAvatar(
+                    backgroundColor: Colors.white,
                     radius: 80,
                   ),
                   SizedBox(height: 10),
@@ -84,7 +85,7 @@ class AccountScreen extends StatelessWidget {
                   ),
                   title: const Text(
                     'Formas pagamento',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   onTap: () {
                     // Ação ao clicar em "Payment options"
@@ -101,7 +102,7 @@ class AccountScreen extends StatelessWidget {
                   ),
                   title: const Text(
                     'Notificações',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   onTap: () {
                     // Ação ao clicar em "Notification preferences"
@@ -118,7 +119,7 @@ class AccountScreen extends StatelessWidget {
                   ),
                   title: const Text(
                     'Informações pessoais',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   onTap: () {
                     // Ação ao clicar em "Personal information"
@@ -146,7 +147,7 @@ class AccountScreen extends StatelessWidget {
                   ),
                   title: const Text(
                     'Perguntas frequentes',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   onTap: () {
                     // Ação ao clicar em "My dashboard"
@@ -163,7 +164,7 @@ class AccountScreen extends StatelessWidget {
                   ),
                   title: const Text(
                     'Fale conosco',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 //const Divider(),
@@ -188,7 +189,7 @@ class AccountScreen extends StatelessWidget {
                   ),
                   title: const Text(
                     'Assuntos legais',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   onTap: () {
                     // Ação ao clicar em "My dashboard"
@@ -205,7 +206,7 @@ class AccountScreen extends StatelessWidget {
                   ),
                   title: const Text(
                     'Dados e proteção',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 ListTile(
@@ -216,7 +217,7 @@ class AccountScreen extends StatelessWidget {
                   ),
                   title: const Text(
                     'Sair',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   onTap: () {
                     // Ação ao clicar em "List my services"

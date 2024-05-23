@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:kipiteu_app/screens/home/account_screen.dart';
 import 'package:kipiteu_app/screens/home/my_goals_screen.dart';
-
-import 'package:kipiteu_app/screens/preferences/preferences_screen.dart';
+import 'package:kipiteu_app/screens/home/plan_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -51,13 +50,13 @@ class _HomeScreenState extends State<HomeScreen> {
           indicatorColor: Colors.white,
           tabs: [
             Tab(
-              height: 80,
+              height: 50, // Adjusted height
               icon: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 30,
-                    height: 30,
+                    width: 25,
+                    height: 25,
                     child: Image.asset(
                       'assets/icons/home_icons/bottom/home.png',
                       color: Colors.grey,
@@ -74,34 +73,36 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Tab(
-              height: 80,
+              height: 50, // Adjusted height
               icon: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 30,
-                    height: 30,
+                    width: 25,
+                    height: 25,
                     child: Image.asset(
                       'assets/icons/home_icons/bottom/prefs.png',
                       color: Colors.grey,
                     ),
                   ),
-                  const Text('Metas',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
-                      )),
+                  const Text(
+                    'Metas',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+                  ),
                 ],
               ),
             ),
             Tab(
-              height: 80,
+              height: 50, // Adjusted height
               icon: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 30,
-                    height: 30,
+                    width: 25,
+                    height: 25,
                     child: Image.asset(
                       'assets/icons/home_icons/bottom/user.png',
                       color: Colors.grey,
@@ -124,6 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildHomeScreen() {
+    TextEditingController searchController = TextEditingController();
     final List<Map<String, String>> cardData = [
       {
         'title': 'Diabetes',
@@ -203,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
           Row(
@@ -229,6 +231,28 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: [
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.95,
+              child: Card(
+                color: Colors.white,
+                elevation: 6,
+                child: TextField(
+                  controller: searchController,
+                  cursorColor: Colors.black,
+                  decoration: InputDecoration(
+                    suffixIcon: const Icon(Icons.search),
+                    hintText: '  Procurar...',
+                    contentPadding: const EdgeInsets.all(9),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(31),
+                        borderSide: BorderSide.none),
+                  ),
+                ),
+              ),
+            ),
+          ),
           SizedBox(
             height: 210,
             child: PageView.builder(
@@ -272,7 +296,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           const SizedBox(
-            height: 30,
+            height: 60,
           ),
           Expanded(
             child: GridView.builder(
@@ -293,23 +317,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       print("Card ${cardData[index]['title']} clicked!");
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const PreferencesScreen(),
+                          builder: (context) => const PlanScreen(),
                         ),
                       );
                     },
                     borderRadius: BorderRadius.circular(10),
                     child: Card(
-                      color: Colors.white,
-                      elevation: 2,
+                      color: Colors.transparent,
+                      elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const SizedBox(
-                            height: 10,
-                          ),
                           ClipRRect(
                             borderRadius: const BorderRadius.vertical(
                               top: Radius.circular(10),
@@ -320,7 +341,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               height:
                                   60, // Ajuste para reduzir o tamanho da imagem
                               width: 60,
-                              color: Colors.black,
                             ),
                           ),
                           Padding(
@@ -346,48 +366,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-           /* Positioned(
-                right: 10,
-                top: 10,
-                child: Container(
-                  padding: const EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  constraints: const BoxConstraints(
-                    minWidth: 16,
-                    minHeight: 16,
-                  ),
-                  child: const Text(
-                    '23',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ), */
