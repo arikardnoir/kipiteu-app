@@ -115,7 +115,6 @@ class RecipeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const Divider(),
             const Padding(
               padding: EdgeInsets.all(10.0),
               child: ExpansionTile(
@@ -137,7 +136,6 @@ class RecipeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const Divider(),
           ],
         ),
       ),
