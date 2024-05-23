@@ -87,40 +87,54 @@ class RecipeScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 222),
-                  _buildRatingBar(
-                    0.0,
-                  ),
+                  _buildRatingBar(0.0),
                 ],
               ),
             ),
             const SizedBox(
               height: 40,
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: ListTile(
-                trailing: const Icon(
-                  Icons.arrow_downward,
-                ),
-                title: const Text(
+            const Padding(
+              padding: EdgeInsets.all(10.0),
+              child: ExpansionTile(
+                trailing: Icon(Icons.arrow_downward),
+                title: Text(
                   'Ingredientes',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
                 ),
-                onTap: () {},
+                children: <Widget>[
+                  ListTile(
+                    title: Text('Ingrediente 1'),
+                  ),
+                  ListTile(
+                    title: Text('Ingrediente 2'),
+                  ),
+                  ListTile(
+                    title: Text('Ingrediente 3'),
+                  ),
+                ],
               ),
             ),
             const Divider(),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: ListTile(
-                trailing: const Icon(
-                  Icons.arrow_downward,
-                ),
-                title: const Text(
+            const Padding(
+              padding: EdgeInsets.all(10.0),
+              child: ExpansionTile(
+                trailing: Icon(Icons.arrow_downward),
+                title: Text(
                   'Modo de preparo',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
                 ),
-                onTap: () {},
+                children: <Widget>[
+                  ListTile(
+                    title: Text('Passo 1'),
+                  ),
+                  ListTile(
+                    title: Text('Passo 2'),
+                  ),
+                  ListTile(
+                    title: Text('Passo 3'),
+                  ),
+                ],
               ),
             ),
             const Divider(),
@@ -143,75 +157,3 @@ class RecipeScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- /* Container(
-            width: 300,
-            height: 170,
-            padding: const EdgeInsets.all(10),
-            margin: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: ListView.builder(
-                itemCount: 4,
-                itemBuilder: (ctx, index) {
-                  return const Card(
-                    color: Colors.white,
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                      child: Text('Bghsgs ggyasgvh fs'),
-                    ),
-                  );
-                }),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            child: Text(
-              'Modo de preparo',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ), */
-          /* Container(
-            width: 300,
-            height: 170,
-            padding: const EdgeInsets.all(10),
-            margin: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: ListView.builder(
-                itemCount: 6,
-                itemBuilder: (ctx, index) {
-                  return Column(children: [
-                    ListTile(
-                      leading: CircleAvatar(
-                        child: Text('${index + 1}'),
-                      ),
-                      title: const Text('Stfsyfay gyayayvass erty'),
-                    )
-                  ]);
-                }),
-          ), */
