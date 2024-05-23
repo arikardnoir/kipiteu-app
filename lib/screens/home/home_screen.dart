@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:kipiteu_app/models/category_model.dart';
 import 'package:kipiteu_app/screens/home/account_screen.dart';
 import 'package:kipiteu_app/screens/home/my_goals_screen.dart';
 import 'package:kipiteu_app/screens/home/plan_screen.dart';
@@ -126,80 +127,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildHomeScreen() {
     TextEditingController searchController = TextEditingController();
-    final List<Map<String, String>> cardData = [
-      {
-        'title': 'Diabetes',
-        'image': 'assets/icons/home_icons/center/diabetes.png',
-      },
-      {
-        'title': 'Perder peso',
-        'image': 'assets/icons/home_icons/center/lessweight.png',
-      },
-      {
-        'title': 'Bebês',
-        'image': 'assets/icons/home_icons/center/baby.png',
-      },
-      {
-        'title': 'AVC',
-        'image': 'assets/icons/home_icons/center/avc.png',
-      },
-      {
-        'title': 'Sem glúten',
-        'image': 'assets/icons/home_icons/center/gluten.png',
-      },
-      {
-        'title': 'Ganhar peso',
-        'image': 'assets/icons/home_icons/center/moreweight.png',
-      },
-      {
-        'title': 'Vegetariano',
-        'image': 'assets/icons/home_icons/center/vegan.png',
-      },
-      {
-        'title': 'Cardíacos',
-        'image': 'assets/icons/home_icons/center/heart.png',
-      },
-      {
-        'title': 'Sem glúten',
-        'image': 'assets/icons/home_icons/center/gluten.png',
-      },
-      {
-        'title': 'Ganhar peso',
-        'image': 'assets/icons/home_icons/center/moreweight.png',
-      },
-      {
-        'title': 'Vegetariano',
-        'image': 'assets/icons/home_icons/center/vegan.png',
-      },
-      {
-        'title': 'Cardíacos',
-        'image': 'assets/icons/home_icons/center/heart.png',
-      },
-      {
-        'title': 'Sem glúten',
-        'image': 'assets/icons/home_icons/center/gluten.png',
-      },
-      {
-        'title': 'Ganhar peso',
-        'image': 'assets/icons/home_icons/center/moreweight.png',
-      },
-      {
-        'title': 'Vegetariano',
-        'image': 'assets/icons/home_icons/center/vegan.png',
-      },
-      {
-        'title': 'Cardíacos',
-        'image': 'assets/icons/home_icons/center/heart.png',
-      },
-      {
-        'title': 'Sem glúten',
-        'image': 'assets/icons/home_icons/center/gluten.png',
-      },
-      {
-        'title': 'Ganhar peso',
-        'image': 'assets/icons/home_icons/center/moreweight.png',
-      },
-    ];
 
     return Scaffold(
       appBar: AppBar(
