@@ -4,10 +4,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future<void> sendOTPService(String email) async {
-  // Aqui você precisa chamar sua API ou serviço para enviar o OTP por email
-  // Por exemplo, se você estiver usando um serviço de envio de emails como SendGrid,
-  // você precisará fazer uma solicitação HTTP POST para a API do SendGrid.
-
   const url = 'https://kipiteu.onrender.com/users/verify';
 
   try {

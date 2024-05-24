@@ -2,7 +2,9 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:kipiteu_app/screens/sign/reset_password.dart';
+import 'package:kipiteu_app/screens/initial/initial_screen.dart';
+import 'package:kipiteu_app/screens/password/forgot_password_screen.dart';
+
 import 'package:kipiteu_app/screens/sign/sign_up_screen.dart';
 import 'package:kipiteu_app/services/email_services/email_sign_in_service/email_sign_in_service.dart';
 import 'package:kipiteu_app/services/google_services/google_sign_in_service/google_sign_in_service.dart';
@@ -24,6 +26,18 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back), // Ícone de voltar
+          onPressed: () {
+            Navigator.of(context).pop(
+              MaterialPageRoute(
+                builder: (context) => const InitialScreen(),
+              ),
+            );
+          },
+        ),
+      ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           return SingleChildScrollView(
@@ -34,7 +48,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(
-                    height: 40.0,
+                    height: 70.0,
                   ),
                   const Text(
                     'Login',
@@ -91,7 +105,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     onTap: () {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => const ResetPasswordScreen(),
+                          builder: (context) => const ForgotPasswordScreen(),
                         ),
                       );
                     },
@@ -107,8 +121,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      await EmailSignInAPIService(
-                          emailController.text, passwordController.text);
+                      await EmailSignInAPIService(emailController.text,
+                          passwordController.text, context);
                     },
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(
@@ -147,11 +161,22 @@ class _SignInScreenState extends State<SignInScreen> {
                         borderRadius: BorderRadius.circular(31.0),
                       ),
                     ),
-                    child: const Text(
-                      'Entrar com Google',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                      ),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        /* Image.asset(
+                          'assets/icons/google.png', // Caminho para o ícone local
+                          height: 24, // Altura do ícone
+                        ), */
+                        SizedBox(
+                            width: 8), // Espaçamento entre o ícone e o texto
+                        Text(
+                          'Entrar com Google',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(

@@ -38,7 +38,9 @@ dependencies:
   google_sign_in: ^6.2.1   
   crypto: ^3.0.3
   http: ^1.2.1
-  email_auth: ^2.0.0
+  cpf_cnpj_validator: ^2.0.0
+  email_validator: ^2.0.1
+  dots_indicator: ^3.0.0
 
 
 dev_dependencies:
@@ -68,6 +70,58 @@ flutter:
      - assets/images/6132028.jpg
      - assets/images/8071239.jpg
      - assets/images/numbercheck.jpg
+     - assets/icons/home_icons/logo.png
+     - assets/icons/home_icons/bottom/home.png
+     - assets/icons/home_icons/bottom/search.png
+     - assets/icons/home_icons/bottom/prefs.png
+     - assets/icons/home_icons/bottom/user.png
+     - assets/images/cards/food1.jpg
+     - assets/images/cards/food2.jpg
+     - assets/images/cards/food3.jpg
+     - assets/icons/home_icons/top/notification_icon.png
+ 
+ 
+     - assets/icons/home_icons/center/avc.png
+     - assets/icons/home_icons/center/diabetes.png
+     - assets/icons/home_icons/center/heart.png
+     - assets/icons/home_icons/center/gluten.png
+     - assets/icons/home_icons/center/lessweight.png
+     - assets/icons/home_icons/center/moreweight.png
+     - assets/icons/home_icons/center/vegan.png
+     - assets/icons/home_icons/center/baby.png
+     - assets/icons/account_icons/edit.png
+     - assets/icons/account_icons/talk.png
+     - assets/icons/account_icons/asks.png
+     - assets/icons/account_icons/payment.png
+     - assets/icons/account_icons/notify.png
+     - assets/icons/account_icons/personal.png
+     - assets/icons/account_icons/legal.png
+     - assets/icons/account_icons/safety.png
+     - assets/icons/account_icons/settings.png
+     - assets/icons/account_icons/delete.png
+     - assets/icons/account_icons/exit.png
+     - assets/icons/account_icons/ring.png
+     - assets/images/cards/preferences_cards/matabicho.png
+     - assets/images/cards/preferences_cards/almoco.png
+     - assets/images/cards/preferences_cards/jantar.png
+     - assets/images/cards/preferences_cards/sobremesa.png
+     - assets/images/cards/preferences_cards/ads1.jpg
+     - assets/images/cards/preferences_cards/pops1.jpg
+     - assets/images/cards/preferences_cards/fasts1.jpg
+     - assets/images/cards/preferences_cards/lasts1.jpg
+     - assets/icons/plan_icons/numero1.png
+     - assets/icons/plan_icons/numero2.png
+     - assets/icons/plan_icons/numero3.png
+     - assets/icons/plan_icons/numero4.png
+     - assets/icons/plan_icons/numero5.png
+     - assets/icons/plan_icons/numero6.png
+     - assets/icons/plan_icons/numero7.png
+     - assets/icons/goals_icons/goals.png 
+     - assets/images/cards/goals_cards/goalscard1.jpg
+     - assets/images/cards/goals_cards/goalscard2.jpg
+     - assets/images/cards/goals_cards/goalscard3.jpg
+     - assets/images/cards/goals_cards/goalscard4.jpg
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

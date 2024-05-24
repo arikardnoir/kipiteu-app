@@ -41,6 +41,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.18.0"
+  cpf_cnpj_validator:
+    dependency: "direct main"
+    description:
+      name: cpf_cnpj_validator
+      sha256: "2d52caefe720f7428d8fd12b5dc3a9603e137ae4eafe032b8f1bd104d3656bfb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   crypto:
     dependency: "direct main"
     description:
@@ -57,14 +65,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
-  email_auth:
+  dots_indicator:
     dependency: "direct main"
     description:
-      name: email_auth
-      sha256: "980674f7bc5be3bb6cf46f684349c00192210cc1246fa01c5ea3fd68d390ca23"
+      name: dots_indicator
+      sha256: "58b6a365744aa62aa1b70c4ea29e5106fbe064f5edaf7e9652e9b856edbfd9bb"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "3.0.0"
+  email_validator:
+    dependency: "direct main"
+    description:
+      name: email_validator
+      sha256: e9a90f27ab2b915a27d7f9c2a7ddda5dd752d6942616ee83529b686fc086221b
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.17"
   fake_async:
     dependency: transitive
     description:
