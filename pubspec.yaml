@@ -117,7 +117,10 @@ flutter:
      - assets/icons/plan_icons/numero6.png
      - assets/icons/plan_icons/numero7.png
      - assets/icons/goals_icons/goals.png 
-
+     - assets/images/cards/goals_cards/goalscard1.jpg
+     - assets/images/cards/goals_cards/goalscard2.jpg
+     - assets/images/cards/goals_cards/goalscard3.jpg
+     - assets/images/cards/goals_cards/goalscard4.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
