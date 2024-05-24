@@ -1,80 +1,25 @@
 import 'package:flutter/material.dart';
 
-class GoalsScreen extends StatelessWidget {
-  const GoalsScreen({super.key});
+class MyGoalsSreen extends StatelessWidget {
+  const MyGoalsSreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    /*  final List<Map<String, String>> cardData = [
-      {
-        'title': 'Diabetes',
-        'image': 'assets/icons/home_icons/center/diabetes.png',
-      },
-      {
-        'title': 'Perder peso',
-        'image': 'assets/icons/home_icons/center/lessweight.png',
-      },
-      {
-        'title': 'Bebês',
-        'image': 'assets/icons/home_icons/center/baby.png',
-      },
-      {
-        'title': 'AVC',
-        'image': 'assets/icons/home_icons/center/avc.png',
-      },
-      {
-        'title': 'Sem glúten',
-        'image': 'assets/icons/home_icons/center/gluten.png',
-      },
-      {
-        'title': 'Ganhar peso',
-        'image': 'assets/icons/home_icons/center/moreweight.png',
-      },
-      {
-        'title': 'Vegetariano',
-        'image': 'assets/icons/home_icons/center/vegan.png',
-      },
-      {
-        'title': 'Doenças Cardíacas',
-        'image': 'assets/icons/home_icons/center/heart.png',
-      },
-    ]; */
-
-    TextEditingController searchController = TextEditingController();
+    final TextEditingController searchController = TextEditingController();
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          centerTitle: true,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          actions: [
-            Row(
-              children: [
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    IconButton(
-                      color: Colors.white,
-                      icon: Image.asset(
-                        'assets/icons/account_icons/ring.png',
-                        width: 30,
-                        height: 30,
-                        color: Colors.redAccent,
-                      ),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        body: Column(
+        title: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.all(2.0),
+              padding: const EdgeInsets.all(1.0),
               child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.95,
+                width: MediaQuery.of(context).size.width * 0.65,
                 child: Card(
                   color: Colors.white,
                   elevation: 6,
@@ -93,90 +38,25 @@ class GoalsScreen extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(
+              width: 5,
+            ),
+            IconButton(
+              color: Colors.white,
+              icon: Image.asset(
+                'assets/icons/account_icons/ring.png',
+                width: 30,
+                height: 30,
+                color: Colors.redAccent,
+              ),
+              onPressed: () {},
+            ),
           ],
-        ));
+        ),
+      ),
+      body: const Column(
+        children: [],
+      ),
+    );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* /* children: [
-          const SizedBox(
-            height: 100,
-          ),
-          Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(10),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                childAspectRatio: 1 / 0.9,
-              ),
-              itemCount: cardData.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  color: Colors.white,
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      ClipRRect(
-                        borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(10),
-                        ),
-                        child: Image.asset(
-                          cardData[index]['image']!,
-                          fit: BoxFit.cover,
-                          height:
-                              100, // Adjust this value to change image height
-                          width: 100,
-                          color: const Color.fromARGB(255, 250, 128, 128),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          cardData[index]['title']!,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 117, 117, 117),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ), */
-        ]), */

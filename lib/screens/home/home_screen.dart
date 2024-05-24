@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:kipiteu_app/models/category_model.dart';
 import 'package:kipiteu_app/screens/home/account_screen.dart';
-import 'package:kipiteu_app/screens/home/my_goals_screen.dart';
-import 'package:kipiteu_app/screens/home/plan_screen.dart';
+import 'package:kipiteu_app/screens/home/goals_screen.dart';
+import 'package:kipiteu_app/screens/preferences/preferences_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -244,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       print("Card ${cardData[index]['title']} clicked!");
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const PlanScreen(),
+                          builder: (context) => const PreferencesScreen(),
                         ),
                       );
                     },

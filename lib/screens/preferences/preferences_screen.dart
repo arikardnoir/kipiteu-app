@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kipiteu_app/screens/recipes/recipe_screen.dart';
+import 'package:kipiteu_app/screens/home/categories_screen.dart';
 
 class PreferencesScreen extends StatefulWidget {
   const PreferencesScreen({super.key});
@@ -583,7 +583,7 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const RecipeScreen(),
+                  builder: (context) => const CategoryScreen(),
                 ),
               );
             },
