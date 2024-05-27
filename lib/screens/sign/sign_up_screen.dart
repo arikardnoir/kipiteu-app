@@ -65,9 +65,6 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationsMixin {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const SizedBox(
-                    height: 10.0,
-                  ),
                   const Text(
                     'Registrar',
                     textAlign: TextAlign.center,

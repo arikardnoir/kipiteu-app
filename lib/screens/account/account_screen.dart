@@ -1,8 +1,22 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:kipiteu_app/screens/sign/sign_in_screen.dart';
 import 'package:kipiteu_app/screens/account/subscription_screen.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
+
+  Future<void> _logout(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const SignInScreen(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -242,7 +256,7 @@ class AccountScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   onTap: () {
-                    // Ação ao clicar em "List my services"
+                    _logout(context);
                   },
                 ),
                 const SizedBox(

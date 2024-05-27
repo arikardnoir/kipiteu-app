@@ -5,8 +5,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:kipiteu_app/screens/sign/verify_account_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:kipiteu_app/screens/home/home_screen.dart';
+import 'package:kipiteu_app/screens/sign/verify_account_screen.dart';
 import 'package:kipiteu_app/services/email_services/email_sign_in_service/email_sign_in_to_backend.dart';
 
 Future<EmailLoginResponse?> EmailSignInAPIService(
@@ -27,7 +29,6 @@ Future<EmailLoginResponse?> EmailSignInAPIService(
         'type': type, // Adiciona o campo 'type' no corpo da requisição
       }),
     );
-    //print('Resposta da API: ${response.body}');
 
     if (response.statusCode == 200) {
       // Converte a resposta em um mapa JSON
@@ -40,10 +41,19 @@ Future<EmailLoginResponse?> EmailSignInAPIService(
             responseData['data']['Email']; // Obtém o e-mail da chave 'data'
         String fullname = responseData['data']['Fullname'];
 
+        // Salva o token usando shared_preferences
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('token', token);
+
         print('Token: $token');
         print('Email: $email');
         print('Nome: $fullname');
 
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const HomeScreen(),
+          ),
+        );
         return EmailLoginResponse(
             token: token, email: email, fullname: fullname);
       } else {

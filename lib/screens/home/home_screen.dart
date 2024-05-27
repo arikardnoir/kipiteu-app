@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:kipiteu_app/models/category_model.dart';
-import 'package:kipiteu_app/screens/home/account_screen.dart';
+import 'package:kipiteu_app/screens/account/account_screen.dart';
 import 'package:kipiteu_app/screens/home/goals_screen.dart';
 import 'package:kipiteu_app/screens/preferences/preferences_screen.dart';
 

@@ -41,6 +41,7 @@ dependencies:
   cpf_cnpj_validator: ^2.0.0
   email_validator: ^2.0.1
   dots_indicator: ^3.0.0
+  shared_preferences: ^2.2.3
 
 
 dev_dependencies:
