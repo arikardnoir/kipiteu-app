@@ -1,13 +1,14 @@
-// ignore_for_file: unused_field, avoid_print, use_build_context_synchronously
+// ignore_for_file: avoid_print
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:kipiteu_app/screens/home/home_screen.dart';
 import 'package:kipiteu_app/screens/initial/initial_screen.dart';
 import 'package:kipiteu_app/screens/password/forgot_password_screen.dart';
-
 import 'package:kipiteu_app/screens/sign/sign_up_screen.dart';
 import 'package:kipiteu_app/services/email_services/email_sign_in_service/email_sign_in_service.dart';
 import 'package:kipiteu_app/services/google_services/google_sign_in_service/google_sign_in_service.dart';
+import 'package:kipiteu_app/services/requisition_service/requisition_service.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -18,7 +19,7 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   bool _isPasswordVisible = false;
-  final bool _isPasswordStillVisible = false;
+  //final bool _isPasswordStillVisible = false;
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -28,7 +29,7 @@ class _SignInScreenState extends State<SignInScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back), // Ícone de voltar
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pop(
               MaterialPageRoute(
@@ -47,22 +48,17 @@ class _SignInScreenState extends State<SignInScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const SizedBox(
-                    height: 70.0,
-                  ),
+                  const SizedBox(height: 70.0),
                   const Text(
                     'Login',
                     textAlign: TextAlign.center,
                     style:
                         TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   const SizedBox(height: 40),
                   TextField(
-                    controller:
-                        emailController, // Passe o controlador diretamente
+                    controller: emailController,
                     decoration: const InputDecoration(
                       labelText: 'E-mail',
                       border: OutlineInputBorder(),
@@ -75,8 +71,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   const SizedBox(height: 20),
                   TextField(
-                    controller:
-                        passwordController, // Passe o controlador diretamente
+                    controller: passwordController,
                     obscureText: !_isPasswordVisible,
                     decoration: InputDecoration(
                       labelText: 'Senha',
@@ -116,17 +111,21 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () async {
-                      await EmailSignInAPIService(emailController.text,
-                          passwordController.text, context);
+                      await performApiRequest(
+                        context,
+                        () async {
+                          await EmailSignInAPIService(emailController.text,
+                              passwordController.text, context);
+                        },
+                        () =>
+                            const HomeScreen(), // Substitua pela tela de destino após o login bem-sucedido
+                      );
                     },
                     style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(
-                          double.infinity, 50), // Expandindo horizontalmente
+                      minimumSize: const Size(double.infinity, 50),
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.redAccent,
                       shape: RoundedRectangleBorder(
@@ -140,21 +139,17 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
+                  const SizedBox(height: 10.0),
                   ElevatedButton(
                     onPressed: () async {
                       try {
                         await GoogleSignInAPIService();
                       } catch (error) {
-                        // Ação a ser realizada em caso de erro durante o login
                         print('Erro durante o login com o Google: $error');
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(
-                          double.infinity, 50), // Expandindo horizontalmente
+                      minimumSize: const Size(double.infinity, 50),
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.redAccent,
                       shape: RoundedRectangleBorder(
@@ -164,12 +159,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        /* Image.asset(
-                          'assets/icons/google.png', // Caminho para o ícone local
-                          height: 24, // Altura do ícone
-                        ), */
-                        SizedBox(
-                            width: 8), // Espaçamento entre o ícone e o texto
+                        SizedBox(width: 8),
                         Text(
                           'Entrar com Google',
                           style: TextStyle(
@@ -179,9 +169,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   Text.rich(
                     TextSpan(
                       text: 'Ainda não tens uma conta? ',
