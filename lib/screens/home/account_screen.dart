@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kipiteu_app/screens/account/subscription_screen.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -73,6 +74,27 @@ class AccountScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: Colors.grey),
                   ),
+                ),
+                ListTile(
+                  trailing: const Icon(
+                    Icons.arrow_forward,
+                  ),
+                  leading: Image.asset(
+                    'assets/icons/account_icons/payment.png',
+                    width: 20,
+                    height: 20,
+                  ),
+                  title: const Text(
+                    'Planos',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const SubscriptionScreen(),
+                      ),
+                    );
+                  },
                 ),
                 ListTile(
                   trailing: const Icon(
