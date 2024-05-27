@@ -121,6 +121,9 @@ flutter:
      - assets/images/cards/goals_cards/goalscard2.jpg
      - assets/images/cards/goals_cards/goalscard3.jpg
      - assets/images/cards/goals_cards/goalscard4.jpg
+     - assets/images/welcome/welcome1.jpg
+     - assets/images/welcome/welcome2.jpg
+     - assets/images/welcome/welcome3.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

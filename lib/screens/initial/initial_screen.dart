@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kipiteu_app/screens/home/home_screen.dart';
+import 'package:kipiteu_app/screens/sign/sign_in_screen.dart';
 
 import 'package:kipiteu_app/screens/sign/sign_up_screen.dart';
 
@@ -135,7 +135,7 @@ class _InitialScreenState extends State<InitialScreen> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) =>
-                                const HomeScreen() //change to SignIn Screen when its done
+                                const SignInScreen() //change to SignIn Screen when its done
                             ),
                       );
                     },
