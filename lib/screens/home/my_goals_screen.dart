@@ -94,19 +94,19 @@ class MyGoalsSreen extends StatelessWidget {
           const SizedBox(
             height: 40,
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children:
-                  images.map((card) => _buildCard(card, context)).toList(),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children:
+                    images.map((card) => _buildCard(card, context)).toList(),
+              ),
             ),
           ),
           const SizedBox(
-            height: 30,
+            height: 20,
           ),
           Expanded(
             child: ListView.builder(
@@ -244,7 +244,12 @@ class MyGoalsSreen extends StatelessWidget {
   }
 
   Widget _buildCard(Map<String, String> card, BuildContext context) {
-    return Expanded(
+    return Container(
+      width: MediaQuery.of(context).size.width / 4 -
+          16, // Ajuste a largura para se ajustar à tela
+      margin: const EdgeInsets.symmetric(
+          horizontal:
+              1.0), // Adicione uma margem horizontal pequena para espaçamento
       child: Column(
         children: [
           InkWell(
@@ -267,8 +272,8 @@ class MyGoalsSreen extends StatelessWidget {
                       child: Image.asset(
                         card['image']!,
                         fit: BoxFit.cover,
-                        height: 30,
-                        width: 30,
+                        height: 60, // Increased height
+                        width: 60, // Increased width
                       ),
                     ),
                   ],

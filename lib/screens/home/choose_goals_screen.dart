@@ -8,106 +8,89 @@ class ChooseGoalsScreen extends StatelessWidget {
 
   Widget _buildCard(BuildContext context, String imagePath, String title,
       String description) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-        side: const BorderSide(
-          color: Colors.grey, // Define a cor da borda como cinza
-          width: 1.0, // Define a largura da borda
+    return InkWell(
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+          side: const BorderSide(
+            color: Colors.grey, // Define a cor da borda como cinza
+            width: 1.0, // Define a largura da borda
+          ),
         ),
-      ),
-      color: Colors.white, // Define a cor de fundo do Card como branco
-      elevation: 0,
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    bottomLeft: Radius.circular(15),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Image.asset(
-                          imagePath,
-                          fit: BoxFit.cover,
-                          height: 80, // Reduced height
-                          width: 80, // Reduced width
-                        ),
-                      ],
+        color: Colors.white, // Define a cor de fundo do Card como branco
+        elevation: 0,
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      bottomLeft: Radius.circular(15),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Image.asset(
+                            imagePath,
+                            fit: BoxFit.cover,
+                            height: 80, // Reduced height
+                            width: 80, // Reduced width
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(
-                            title,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Text(
+                              title,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(
-                            description,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey,
+                          Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Text(
+                              description,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const PreferencesScreen(),
-                  ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 50),
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.redAccent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
+                ],
               ),
-              child: const Text(
-                'Ver receitas',
-                style: TextStyle(
-                  fontSize: 16.0,
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const PreferencesScreen(),
+          ),
+        );
+      },
     );
   }
 
