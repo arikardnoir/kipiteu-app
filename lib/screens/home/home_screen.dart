@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           SizedBox(
-            height: 210,
+            height: 270,
             child: PageView.builder(
               itemCount: _slideImages.length,
               controller: _slidePageController,

@@ -1,13 +1,27 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
-import 'package:kipiteu_app/screens/account/perfil_photo_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:kipiteu_app/screens/sign/sign_in_screen.dart';
+import 'package:kipiteu_app/screens/account/perfil_photo_screen.dart';
 import 'package:kipiteu_app/screens/account/subscription_screen.dart';
 
-class AccountScreen extends StatelessWidget {
+class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
+
+  @override
+  State<AccountScreen> createState() => _AccountScreenState();
+}
+
+class _AccountScreenState extends State<AccountScreen> {
+  String? _imagePath;
+  String _nome = '';
+  String _email =
+      ''; // Adiciona uma variável de estado para armazenar o nome atual
+
+  final TextEditingController _editNameController = TextEditingController();
+  final TextEditingController _editEmailController = TextEditingController();
 
   Future<void> _logout(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -56,30 +70,173 @@ class AccountScreen extends StatelessWidget {
               child: Column(
                 children: [
                   InkWell(
-                    child: const CircleAvatar(
+                    child: CircleAvatar(
                       backgroundColor: Colors.white,
                       radius: 80,
+                      backgroundImage: _imagePath != null
+                          ? FileImage(File(_imagePath!))
+                          : null,
                     ),
-                    onTap: () {
-                      Navigator.push(
+                    onTap: () async {
+                      final selectedImagePath = await Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const PerfilPhotoScreen()),
                       );
+
+                      if (selectedImagePath != null) {
+                        setState(() {
+                          _imagePath = selectedImagePath;
+                        });
+                      }
                     },
                   ),
                   const SizedBox(height: 10),
-                  const Text(
-                    'Nikola Tesla',
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                  TextButton(
+                    onPressed: () {
+                      showModalBottomSheet<void>(
+                        backgroundColor: Colors.white,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return SizedBox(
+                            height: 200,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                const Text(
+                                  'Editar Nome',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 300,
+                                  child: TextField(
+                                    controller: _editNameController,
+                                    decoration: InputDecoration(
+                                      hintText:
+                                          _nome, // Usa o nome atual como hint
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Cancelar'),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Expanded(
+                                        child: TextButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              _nome = _editNameController
+                                                  .text; // Atualiza o nome atual
+                                            });
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Salvar'),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: Text(
+                      _nome,
+                      style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
                   ),
                   const SizedBox(height: 5),
-                  const Text(
-                    'nikolatesla@gmail.com',
-                    style: TextStyle(fontSize: 20, color: Colors.white70),
+                  TextButton(
+                    onPressed: () {
+                      showModalBottomSheet<void>(
+                        backgroundColor: Colors.white,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return SizedBox(
+                            height: 200,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                const Text(
+                                  'Editar email',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 300,
+                                  child: TextField(
+                                    controller: _editEmailController,
+                                    decoration: InputDecoration(
+                                      hintText: _email,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Cancelar'),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Expanded(
+                                        child: TextButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              _email = _editEmailController
+                                                  .text; // Atualiza o nome atual
+                                            });
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Salvar'),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: Text(
+                      _email, // Substitui 'Nikola Tesla' pelo nome atual
+                      style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
                   ),
                   const SizedBox(height: 5),
                 ],
