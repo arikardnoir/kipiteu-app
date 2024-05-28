@@ -1,8 +1,9 @@
-// ignore_for_file: use_build_context_synchronously, avoid_print
+// ignore_for_file: avoid_print
 
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PerfilPhotoScreen extends StatefulWidget {
   const PerfilPhotoScreen({super.key});
@@ -15,114 +16,39 @@ class _PerfilPhotoScreenState extends State<PerfilPhotoScreen> {
   String? _imagePath;
 
   @override
+  void initState() {
+    super.initState();
+    _loadImage();
+  }
+
+  Future<void> _loadImage() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? savedImagePath = prefs.getString('imagePath');
+    setState(() {
+      _imagePath = savedImagePath;
+    });
+  }
+
+  Future<void> _saveImage(String imagePath) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('imagePath', imagePath);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.grey,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pop(context, _imagePath); // Pass the image path back
           },
         ),
-        title: Row(
-          children: [
-            const Text(
-              'Foto do usuário',
-              style: TextStyle(color: Colors.black),
-            ),
-            const SizedBox(
-              width: 120,
-            ),
-            IconButton(
-              color: Colors.black,
-              icon: const Icon(Icons.edit),
-              onPressed: () {
-                showModalBottomSheet<void>(
-                  backgroundColor: Colors.grey,
-                  barrierLabel: 'Foto o usuario',
-                  context: context,
-                  builder: (BuildContext context) {
-                    return SizedBox(
-                      height: 200,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              const Text(
-                                'Foto do usuario',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 22,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 80,
-                              ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.delete),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Card(
-                                  color: Colors.grey,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        50), // Circular shape
-                                    side: const BorderSide(
-                                        color: Colors.red,
-                                        width: 2), // Red border
-                                  ),
-                                  child: IconButton(
-                                    onPressed: () {
-                                      _pickImage(ImageSource.camera);
-                                    },
-                                    icon: const Icon(Icons.camera),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Card(
-                                  color: Colors.grey,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        50), // Circular shape
-                                    side: const BorderSide(
-                                        color: Colors.red,
-                                        width: 2), // Red border
-                                  ),
-                                  child: IconButton(
-                                    onPressed: () {
-                                      _pickImage(ImageSource.gallery);
-                                      Navigator.pop(context);
-                                    },
-                                    icon: const Icon(Icons.photo_library),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
-          ],
+        title: const Text(
+          'Foto do usuário',
+          style: TextStyle(color: Colors.black),
         ),
       ),
       body: Stack(
@@ -142,6 +68,80 @@ class _PerfilPhotoScreenState extends State<PerfilPhotoScreen> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _showImagePicker(context);
+        },
+        child: const Icon(Icons.edit),
+      ),
+    );
+  }
+
+  Future<void> _showImagePicker(BuildContext context) async {
+    showModalBottomSheet<void>(
+      backgroundColor: Colors.grey,
+      barrierLabel: 'Foto o usuario',
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          height: 200,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const Text(
+                'Foto do usuario',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Card(
+                      color: Colors.grey,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                        side: const BorderSide(color: Colors.red, width: 2),
+                      ),
+                      child: IconButton(
+                        onPressed: () {
+                          _pickImage(ImageSource.camera);
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.camera),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Card(
+                      color: Colors.grey,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                        side: const BorderSide(color: Colors.red, width: 2),
+                      ),
+                      child: IconButton(
+                        onPressed: () {
+                          _pickImage(ImageSource.gallery);
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.photo_library),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -152,10 +152,11 @@ class _PerfilPhotoScreenState extends State<PerfilPhotoScreen> {
     if (image != null) {
       setState(() {
         _imagePath = image.path;
-        print('Image path: $_imagePath'); // Debug print
+        print('Image path: $_imagePath');
+        _saveImage(_imagePath!);
       });
     } else {
-      print('No image selected.'); // Debug print
+      print('No image selected.');
     }
   }
 }
