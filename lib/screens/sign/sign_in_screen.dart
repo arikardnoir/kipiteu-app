@@ -8,7 +8,7 @@ import 'package:kipiteu_app/screens/password/forgot_password_screen.dart';
 import 'package:kipiteu_app/screens/sign/sign_up_screen.dart';
 import 'package:kipiteu_app/services/email_services/email_sign_in_service/email_sign_in_service.dart';
 import 'package:kipiteu_app/services/google_services/google_sign_in_service/google_sign_in_service.dart';
-import 'package:kipiteu_app/services/requisition_service/requisition_service.dart';
+import 'package:kipiteu_app/utils/requisition_utils.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});

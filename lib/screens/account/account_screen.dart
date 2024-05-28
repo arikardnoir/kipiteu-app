@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:kipiteu_app/screens/account/perfil_photo_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:kipiteu_app/screens/sign/sign_in_screen.dart';
@@ -36,7 +37,7 @@ class AccountScreen extends StatelessWidget {
                   'assets/icons/account_icons/ring.png',
                   width: 30,
                   height: 30,
-                  color: Colors.redAccent,
+                  color: Colors.black,
                 ),
                 onPressed: () {},
               ),
@@ -52,26 +53,35 @@ class AccountScreen extends StatelessWidget {
               color: Colors.grey,
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 60.0),
-              child: const Column(
+              child: Column(
                 children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 80,
+                  InkWell(
+                    child: const CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 80,
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const PerfilPhotoScreen()),
+                      );
+                    },
                   ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Nome',
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Nikola Tesla',
                     style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  SizedBox(height: 5),
-                  Text(
-                    'Email',
+                  const SizedBox(height: 5),
+                  const Text(
+                    'nikolatesla@gmail.com',
                     style: TextStyle(fontSize: 20, color: Colors.white70),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                 ],
               ),
             ),
