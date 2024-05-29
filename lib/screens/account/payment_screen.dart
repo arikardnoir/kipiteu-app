@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kipiteu_app/screens/account/add_card_sreen.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
@@ -203,17 +204,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               SizedBox(
                 height: 50,
                 width: 370,
                 child: ElevatedButton(
                   onPressed: () {
-                    /* Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => const SubscriptionScreen(),
-                    ),
-                  ); */
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const AddCardScreen(),
+                      ),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
