@@ -17,8 +17,7 @@ class AccountScreen extends StatefulWidget {
 class _AccountScreenState extends State<AccountScreen> {
   String? _imagePath;
   String _nome = '';
-  String _email =
-      ''; // Adiciona uma variável de estado para armazenar o nome atual
+  String _email = '';
 
   final TextEditingController _editNameController = TextEditingController();
   final TextEditingController _editEmailController = TextEditingController();
@@ -74,7 +73,9 @@ class _AccountScreenState extends State<AccountScreen> {
                       backgroundColor: Colors.white,
                       radius: 80,
                       backgroundImage: _imagePath != null
-                          ? FileImage(File(_imagePath!))
+                          ? FileImage(
+                              File(_imagePath!),
+                            )
                           : null,
                     ),
                     onTap: () async {
@@ -165,7 +166,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           color: Colors.black),
                     ),
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 1),
                   TextButton(
                     onPressed: () {
                       showModalBottomSheet<void>(

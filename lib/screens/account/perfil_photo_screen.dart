@@ -34,12 +34,20 @@ class _PerfilPhotoScreenState extends State<PerfilPhotoScreen> {
     await prefs.setString('imagePath', imagePath);
   }
 
+  Future<void> _deleteImage() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('imagePath');
+    setState(() {
+      _imagePath = null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.white,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
@@ -79,7 +87,7 @@ class _PerfilPhotoScreenState extends State<PerfilPhotoScreen> {
 
   Future<void> _showImagePicker(BuildContext context) async {
     showModalBottomSheet<void>(
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.white,
       barrierLabel: 'Foto o usuario',
       context: context,
       builder: (BuildContext context) {
@@ -89,21 +97,32 @@ class _PerfilPhotoScreenState extends State<PerfilPhotoScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              const Text(
-                'Foto do usuario',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22,
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                const Text(
+                  'Foto do usuario',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                  ),
                 ),
-              ),
+                const SizedBox(
+                  width: 100,
+                ),
+                IconButton(
+                  onPressed: () {
+                    _deleteImage();
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.delete),
+                ),
+              ]),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(2.0),
                     child: Card(
-                      color: Colors.grey,
+                      color: Colors.white,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
@@ -119,9 +138,9 @@ class _PerfilPhotoScreenState extends State<PerfilPhotoScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(2.0),
                     child: Card(
-                      color: Colors.grey,
+                      color: Colors.white,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),

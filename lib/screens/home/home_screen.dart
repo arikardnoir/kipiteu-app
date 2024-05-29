@@ -223,7 +223,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           const SizedBox(
-            height: 60,
+            height: 30,
+          ),
+          const Row(children: [
+            SizedBox(
+              width: 17,
+            ),
+            Text(
+              'Encontre a categoria que precisas!',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            )
+          ]),
+          const SizedBox(
+            height: 4,
           ),
           Expanded(
             child: GridView.builder(
@@ -250,7 +262,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     borderRadius: BorderRadius.circular(10),
                     child: Card(
-                      color: Colors.transparent,
+                      color: const Color.fromARGB(255, 231, 229, 229),
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -258,6 +270,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          const SizedBox(
+                            height: 18,
+                          ),
                           ClipRRect(
                             borderRadius: const BorderRadius.vertical(
                               top: Radius.circular(10),
@@ -271,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(10.0),
+                            padding: const EdgeInsets.all(4.0),
                             child: Text(
                               cardData[index]['title']!,
                               style: const TextStyle(
