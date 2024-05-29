@@ -14,8 +14,11 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   late PageController _slidePageController;
+  late TabController _tabController;
+
   int _currentSlide = 0;
   final List<String> _slideImages = [
     'assets/images/cards/food2.jpg',
@@ -27,11 +30,13 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _slidePageController = PageController();
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
   void dispose() {
     _slidePageController.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -41,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
       length: 3,
       child: Scaffold(
         body: TabBarView(
+          controller: _tabController,
           children: [
             _buildHomeScreen(),
             const GoalsScreen(),
@@ -48,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         bottomNavigationBar: TabBar(
+          controller: _tabController,
           indicatorColor: Colors.white,
           tabs: [
             Tab(
@@ -60,14 +67,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 25,
                     child: Image.asset(
                       'assets/icons/home_icons/bottom/home.png',
-                      color: Colors.grey,
+                      color:
+                          _tabController.index == 0 ? Colors.red : Colors.grey,
                     ),
                   ),
-                  const Text(
+                  Text(
                     'Home',
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.grey,
+                      color:
+                          _tabController.index == 0 ? Colors.red : Colors.grey,
                     ),
                   ),
                 ],
@@ -83,14 +92,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 25,
                     child: Image.asset(
                       'assets/icons/home_icons/bottom/prefs.png',
-                      color: Colors.grey,
+                      color:
+                          _tabController.index == 1 ? Colors.red : Colors.grey,
                     ),
                   ),
-                  const Text(
+                  Text(
                     'Metas',
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.grey,
+                      color:
+                          _tabController.index == 1 ? Colors.red : Colors.grey,
                     ),
                   ),
                 ],
@@ -106,20 +117,27 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 25,
                     child: Image.asset(
                       'assets/icons/home_icons/bottom/user.png',
-                      color: Colors.grey,
+                      color:
+                          _tabController.index == 2 ? Colors.red : Colors.grey,
                     ),
                   ),
-                  const Text(
+                  Text(
                     'Eu',
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.grey,
+                      color:
+                          _tabController.index == 2 ? Colors.red : Colors.grey,
                     ),
                   ),
                 ],
               ),
             ),
           ],
+          onTap: (index) {
+            setState(() {
+              // Rebuild to change the icon color
+            });
+          },
         ),
       ),
     );
@@ -308,3 +326,124 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
+/* 
+
+import 'package:flutter/material.dart';
+
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          Center(child: Text('Home')),
+          Center(child: Text('Metas')),
+          Center(child: Text('Eu')),
+        ],
+      ),
+      bottomNavigationBar: TabBar(
+        controller: _tabController,
+        indicatorColor: Colors.white,
+        tabs: [
+          Tab(
+            height: 50, // Adjusted height
+            icon: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 25,
+                  height: 25,
+                  child: Image.asset(
+                    'assets/icons/home_icons/bottom/home.png',
+                    color: _tabController.index == 0 ? Colors.red : Colors.grey,
+                  ),
+                ),
+                const Text(
+                  'Home',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Tab(
+            height: 50, // Adjusted height
+            icon: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 25,
+                  height: 25,
+                  child: Image.asset(
+                    'assets/icons/home_icons/bottom/prefs.png',
+                    color: _tabController.index == 1 ? Colors.red : Colors.grey,
+                  ),
+                ),
+                const Text(
+                  'Metas',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Tab(
+            height: 50, // Adjusted height
+            icon: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 25,
+                  height: 25,
+                  child: Image.asset(
+                    'assets/icons/home_icons/bottom/user.png',
+                    color: _tabController.index == 2 ? Colors.red : Colors.grey,
+                  ),
+                ),
+                const Text(
+                  'Eu',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+        onTap: (index) {
+          setState(() {
+            // Rebuild to change the icon color
+          });
+        },
+      ),
+    );
+  }
+}
+ */
