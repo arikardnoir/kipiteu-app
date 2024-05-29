@@ -129,6 +129,10 @@ flutter:
      - assets/images/welcome/welcome1.jpg
      - assets/images/welcome/welcome2.jpg
      - assets/images/welcome/welcome3.jpg
+ 
+     - assets/icons/payment_icons/paypal.png
+     - assets/icons/payment_icons/mastercard.png
+     - assets/icons/payment_icons/pix.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

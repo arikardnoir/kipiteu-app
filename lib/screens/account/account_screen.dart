@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:kipiteu_app/screens/account/payment_screen.dart';
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:kipiteu_app/screens/sign/sign_in_screen.dart';
@@ -86,7 +87,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   'assets/icons/account_icons/ring.png',
                   width: 30,
                   height: 30,
-                  color: Colors.black,
+                  color: Colors.redAccent,
                 ),
                 onPressed: () {},
               ),
@@ -101,7 +102,7 @@ class _AccountScreenState extends State<AccountScreen> {
             child: Container(
               color: Colors.grey,
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 60.0),
+              padding: const EdgeInsets.symmetric(vertical: 40.0),
               child: Column(
                 children: [
                   InkWell(
@@ -319,11 +320,14 @@ class _AccountScreenState extends State<AccountScreen> {
                     height: 20,
                   ),
                   title: const Text(
-                    'Formas pagamento',
+                    'Formas de pagamento',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   onTap: () {
-                    // Ação ao clicar em "Payment options"
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => const PaymentScreen()),
+                    );
                   },
                 ),
                 ListTile(
