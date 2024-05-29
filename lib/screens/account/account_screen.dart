@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -17,10 +17,46 @@ class AccountScreen extends StatefulWidget {
 class _AccountScreenState extends State<AccountScreen> {
   String? _imagePath;
   String _nome = '';
-  String _email = '';
+  late String _email = '';
 
   final TextEditingController _editNameController = TextEditingController();
   final TextEditingController _editEmailController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+    _loadImagePath();
+  }
+
+  Future<void> _loadUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _nome = prefs.getString('nome') ?? '';
+      _email = prefs.getString('email') ?? '';
+    });
+  }
+
+  Future<void> _loadImagePath() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _imagePath = prefs.getString('imagePath');
+    });
+  }
+
+  Future<void> _saveUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('nome', _nome);
+    await prefs.setString('email', _email);
+  }
+
+  Future<void> _saveImagePath(String imagePath) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _imagePath = imagePath;
+    });
+    await prefs.setString('imagePath', imagePath);
+  }
 
   Future<void> _logout(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -71,24 +107,21 @@ class _AccountScreenState extends State<AccountScreen> {
                   InkWell(
                     child: CircleAvatar(
                       backgroundColor: Colors.white,
-                      radius: 80,
+                      radius: 120,
                       backgroundImage: _imagePath != null
-                          ? FileImage(
-                              File(_imagePath!),
-                            )
+                          ? FileImage(File(_imagePath!))
                           : null,
                     ),
                     onTap: () async {
                       final selectedImagePath = await Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const PerfilPhotoScreen()),
+                          builder: (context) => const PerfilPhotoScreen(),
+                        ),
                       );
 
                       if (selectedImagePath != null) {
-                        setState(() {
-                          _imagePath = selectedImagePath;
-                        });
+                        _saveImagePath(selectedImagePath);
                       }
                     },
                   ),
@@ -117,8 +150,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                   child: TextField(
                                     controller: _editNameController,
                                     decoration: InputDecoration(
-                                      hintText:
-                                          _nome, // Usa o nome atual como hint
+                                      hintText: _nome,
                                     ),
                                   ),
                                 ),
@@ -141,9 +173,9 @@ class _AccountScreenState extends State<AccountScreen> {
                                         child: TextButton(
                                           onPressed: () {
                                             setState(() {
-                                              _nome = _editNameController
-                                                  .text; // Atualiza o nome atual
+                                              _nome = _editNameController.text;
                                             });
+                                            _saveUserData();
                                             Navigator.of(context).pop();
                                           },
                                           child: const Text('Salvar'),
@@ -166,7 +198,6 @@ class _AccountScreenState extends State<AccountScreen> {
                           color: Colors.black),
                     ),
                   ),
-                  const SizedBox(height: 1),
                   TextButton(
                     onPressed: () {
                       showModalBottomSheet<void>(
@@ -214,9 +245,10 @@ class _AccountScreenState extends State<AccountScreen> {
                                         child: TextButton(
                                           onPressed: () {
                                             setState(() {
-                                              _email = _editEmailController
-                                                  .text; // Atualiza o nome atual
+                                              _email =
+                                                  _editEmailController.text;
                                             });
+                                            _saveUserData();
                                             Navigator.of(context).pop();
                                           },
                                           child: const Text('Salvar'),
@@ -232,7 +264,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       );
                     },
                     child: Text(
-                      _email, // Substitui 'Nikola Tesla' pelo nome atual
+                      _email,
                       style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -273,8 +305,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const SubscriptionScreen(),
-                      ),
+                          builder: (context) => const SubscriptionScreen()),
                     );
                   },
                 ),

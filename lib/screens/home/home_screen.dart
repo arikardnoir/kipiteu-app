@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen>
           indicatorColor: Colors.white,
           tabs: [
             Tab(
-              height: 50, // Adjusted height
+              height: 50,
               icon: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ),
             Tab(
-              height: 50, // Adjusted height
+              height: 50,
               icon: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -108,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ),
             Tab(
-              height: 50, // Adjusted height
+              height: 50,
               icon: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -134,9 +134,7 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ],
           onTap: (index) {
-            setState(() {
-              // Rebuild to change the icon color
-            });
+            setState(() {});
           },
         ),
       ),
@@ -259,7 +257,7 @@ class _HomeScreenState extends State<HomeScreen>
             child: GridView.builder(
               padding: const EdgeInsets.all(10),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3, // Definindo 3 colunas
+                crossAxisCount: 3,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 childAspectRatio: 1 / 1,
@@ -270,7 +268,6 @@ class _HomeScreenState extends State<HomeScreen>
                   color: Colors.transparent,
                   child: InkWell(
                     onTap: () {
-                      // Adicione aqui o código para a ação desejada ao clicar no card
                       print("Card ${cardData[index]['title']} clicked!");
                       Navigator.of(context).push(
                         MaterialPageRoute(
@@ -280,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen>
                     },
                     borderRadius: BorderRadius.circular(10),
                     child: Card(
-                      color: const Color.fromARGB(255, 231, 229, 229),
+                      color: const Color.fromARGB(255, 241, 239, 239),
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -298,8 +295,7 @@ class _HomeScreenState extends State<HomeScreen>
                             child: Image.asset(
                               cardData[index]['image']!,
                               fit: BoxFit.cover,
-                              height:
-                                  60, // Ajuste para reduzir o tamanho da imagem
+                              height: 60,
                               width: 60,
                             ),
                           ),
@@ -326,124 +322,3 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 }
-
-
-/* 
-
-import 'package:flutter/material.dart';
-
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 3, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          Center(child: Text('Home')),
-          Center(child: Text('Metas')),
-          Center(child: Text('Eu')),
-        ],
-      ),
-      bottomNavigationBar: TabBar(
-        controller: _tabController,
-        indicatorColor: Colors.white,
-        tabs: [
-          Tab(
-            height: 50, // Adjusted height
-            icon: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 25,
-                  height: 25,
-                  child: Image.asset(
-                    'assets/icons/home_icons/bottom/home.png',
-                    color: _tabController.index == 0 ? Colors.red : Colors.grey,
-                  ),
-                ),
-                const Text(
-                  'Home',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Tab(
-            height: 50, // Adjusted height
-            icon: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 25,
-                  height: 25,
-                  child: Image.asset(
-                    'assets/icons/home_icons/bottom/prefs.png',
-                    color: _tabController.index == 1 ? Colors.red : Colors.grey,
-                  ),
-                ),
-                const Text(
-                  'Metas',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Tab(
-            height: 50, // Adjusted height
-            icon: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 25,
-                  height: 25,
-                  child: Image.asset(
-                    'assets/icons/home_icons/bottom/user.png',
-                    color: _tabController.index == 2 ? Colors.red : Colors.grey,
-                  ),
-                ),
-                const Text(
-                  'Eu',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-        onTap: (index) {
-          setState(() {
-            // Rebuild to change the icon color
-          });
-        },
-      ),
-    );
-  }
-}
- */
