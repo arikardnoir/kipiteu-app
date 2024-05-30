@@ -3,18 +3,34 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AddCardScreen extends StatefulWidget {
-  const AddCardScreen({super.key});
+class CardDetailsScreen extends StatefulWidget {
+  const CardDetailsScreen({super.key});
 
   @override
-  State<AddCardScreen> createState() => _AddCardScreenState();
+  State<CardDetailsScreen> createState() => _CardDetailsScreenState();
 }
 
-class _AddCardScreenState extends State<AddCardScreen> {
+class _CardDetailsScreenState extends State<CardDetailsScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _numberController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _codeController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCardDetails();
+  }
+
+  Future<void> _loadCardDetails() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _nameController.text = prefs.getString('cardName') ?? '';
+      _numberController.text = prefs.getString('cardNumber') ?? '';
+      _dateController.text = prefs.getString('cardDate') ?? '';
+      _codeController.text = prefs.getString('cardCode') ?? '';
+    });
+  }
 
   Future<void> _saveCardDetails() async {
     final prefs = await SharedPreferences.getInstance();
@@ -33,7 +49,10 @@ class _AddCardScreenState extends State<AddCardScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Adicionar cartão'),
+        title: const Text(
+          'Detalhes do cartão',
+          style: TextStyle(fontWeight: FontWeight.w500),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -41,13 +60,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 40),
-              const Text(
-                'Digite os detalhes do cartao',
-                textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 80),
               SizedBox(
                 height: 50,
                 width: 350,
@@ -140,7 +153,10 @@ class _AddCardScreenState extends State<AddCardScreen> {
                 height: 50,
                 width: 370,
                 child: ElevatedButton(
-                  onPressed: _saveCardDetails,
+                  onPressed: () {
+                    _saveCardDetails();
+                    Navigator.of(context).pop();
+                  },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
                     backgroundColor: Colors.redAccent,
@@ -150,7 +166,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     fixedSize: const Size.fromHeight(18),
                   ),
                   child: const Text(
-                    'Adicionar',
+                    'Salvar',
                     style: TextStyle(fontSize: 16.0),
                   ),
                 ),

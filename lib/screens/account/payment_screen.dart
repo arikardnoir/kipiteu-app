@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kipiteu_app/screens/account/add_card_screen.dart';
-import 'package:kipiteu_app/screens/account/edit_card_screen.dart';
+import 'package:kipiteu_app/screens/account/card_details_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -227,7 +227,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => const EditCardScreen(),
+            builder: (context) => const CardDetailsScreen(),
           ),
         );
       },
