@@ -73,7 +73,7 @@ class _CreditDebitCardScreenState extends State<CreditDebitCardScreen> {
                   validThru = value;
                 });
               },
-              onChangedCCV: (value) {
+              onChangedCVV: (value) {
                 setState(() {
                   cvvNumber = value;
                 });

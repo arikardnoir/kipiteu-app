@@ -6,14 +6,14 @@ class FormWidget extends StatefulWidget {
   final Function(String) onChangedCardNumber;
   final Function(String) onChangedCardHolder;
   final Function(String) onChangedExpiryDate;
-  final Function(String) onChangedCCV;
+  final Function(String) onChangedCVV;
 
   const FormWidget({
     super.key,
     required this.onChangedCardNumber,
     required this.onChangedCardHolder,
     required this.onChangedExpiryDate,
-    required this.onChangedCCV,
+    required this.onChangedCVV,
   });
 
   @override
@@ -25,11 +25,9 @@ class _FormWidgetState extends State<FormWidget> {
   final TextEditingController cardHolderController = TextEditingController();
   final TextEditingController expiryDateController = TextEditingController();
   final TextEditingController ccvController = TextEditingController();
-
-  /*  String cardHolerFullName = '';
-  String expiryDate = '';
-  String validThru = '';
-  String cardNumber = ''; */
+  String? ccvError;
+  String? dateError;
+  String? nameError;
 
   @override
   void initState() {
@@ -44,7 +42,7 @@ class _FormWidgetState extends State<FormWidget> {
       widget.onChangedExpiryDate(expiryDateController.text);
     });
     ccvController.addListener(() {
-      widget.onChangedCCV(ccvController.text);
+      widget.onChangedCVV(ccvController.text);
     });
   }
 
@@ -69,7 +67,6 @@ class _FormWidgetState extends State<FormWidget> {
             controller: cardNumberController,
             decoration: InputDecoration(
               labelText: 'Número do Cartão',
-              //errorText: cardNumberError.isNotEmpty ? cardNumberError : null,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(4.0),
               ),
@@ -87,6 +84,7 @@ class _FormWidgetState extends State<FormWidget> {
                 borderRadius: BorderRadius.circular(4.0),
               ),
               contentPadding: const EdgeInsets.fromLTRB(12.0, 14.0, 12.0, 12.0),
+              errorText: nameError,
             ),
           ),
           const SizedBox(height: 20),
@@ -109,11 +107,11 @@ class _FormWidgetState extends State<FormWidget> {
               ),
               const SizedBox(width: 20),
               Flexible(
-                flex: 3,
+                flex: 5,
                 child: TextField(
                   controller: ccvController,
                   decoration: InputDecoration(
-                    labelText: 'CCV',
+                    labelText: 'CVV',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4.0),
                     ),
