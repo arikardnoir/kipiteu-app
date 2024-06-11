@@ -52,9 +52,10 @@ class _CreditDebitCardScreenState extends State<CreditDebitCardScreen> {
               validThru: validThru,
               cvvNumber: cvvNumber,
               topLeftColor: Colors.black,
-              bottomRightColor: Colors.black,
+              bottomRightColor: Colors.blue,
               cardProviderLogo: const Icon(Icons.monetization_on),
               cardProviderLogoPosition: CardProviderLogoPosition.right,
+              enableFlipping: true,
             ),
             FormWidget(
               onChangedCardNumber: (value) {
