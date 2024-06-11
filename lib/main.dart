@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:kipiteu_app/screens/initial/splash_sreen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {

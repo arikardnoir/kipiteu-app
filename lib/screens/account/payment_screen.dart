@@ -1,6 +1,9 @@
+// ignore_for_file: unused_element
+
 import 'package:flutter/material.dart';
-import 'package:kipiteu_app/screens/account/add_card_screen.dart';
+
 import 'package:kipiteu_app/screens/account/card_details_screen.dart';
+import 'package:kipiteu_app/screens/account/credit_debit_card_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -52,57 +55,123 @@ class _PaymentScreenState extends State<PaymentScreen> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              const SizedBox(height: 50),
-              buildPaymentCard(
-                iconPath: 'assets/icons/payment_icons/pix.png',
-                title: 'Pix',
-                subtitle: '114251162*******',
-                selected: pixSelected,
-                onChanged: (bool? value) {
-                  setState(() {
-                    pixSelected = value!;
-                    if (pixSelected) {
-                      paypalSelected = false;
-                      creditCardSelected = false;
-                    }
-                    _saveSelectedMethods();
-                  });
-                },
+              const SizedBox(height: 40),
+
+              SizedBox(
+                height: 70,
+                width: 380,
+                child: InkWell(
+                  child: Card(
+                    color: Colors.white,
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(7),
+                      side: const BorderSide(color: Colors.grey),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.credit_card_rounded,
+                              color: Colors.redAccent,
+                            ),
+                          ),
+                          SizedBox(width: 5),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Cartão de crédito/débito',
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const CreditDebitCardScreen(
+                          cardNumber: '',
+                          expiryDate: '',
+                          cardHolder: '',
+                          ccv: '',
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
-              const SizedBox(height: 10),
-              buildPaymentCard(
-                iconPath: 'assets/icons/payment_icons/paypal.png',
-                title: 'Paypal',
-                subtitle: '843251162*******',
-                selected: paypalSelected,
-                onChanged: (bool? value) {
-                  setState(() {
-                    paypalSelected = value!;
-                    if (paypalSelected) {
-                      pixSelected = false;
-                      creditCardSelected = false;
-                    }
-                    _saveSelectedMethods();
-                  });
-                },
+              const SizedBox(
+                height: 10,
               ),
-              const SizedBox(height: 10),
-              buildPaymentCard(
-                iconPath: 'assets/icons/payment_icons/mastercard.png',
-                title: 'CreditCard',
-                subtitle: '643221362*******',
-                selected: creditCardSelected,
-                onChanged: (bool? value) {
-                  setState(() {
-                    creditCardSelected = value!;
-                    if (creditCardSelected) {
-                      pixSelected = false;
-                      paypalSelected = false;
-                    }
-                    _saveSelectedMethods();
-                  });
-                },
+
+              SizedBox(
+                height: 70,
+                width: 380,
+                child: InkWell(
+                  child: Card(
+                    color: Colors.white,
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(7),
+                      side: const BorderSide(color: Colors.grey),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          /*  Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Icon(
+                                Icons.add,
+                                color: Colors.redAccent,
+                              )), */
+                          SizedBox(width: 5),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Pix',
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  onTap: () {
+                    /* Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const MyHomePage(
+                          title: '',
+                        ),
+                      ),
+                    ); */
+                  },
+                ),
               ),
+
               const SizedBox(
                   height: 200), // Space between the card and the button
               SizedBox(
@@ -127,31 +196,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              SizedBox(
-                height: 50,
-                width: 370,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const AddCardScreen(),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.redAccent,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(7),
-                    ),
-                    fixedSize: const Size.fromHeight(18),
-                  ),
-                  child: const Text(
-                    'Adicionar cartão',
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
@@ -162,7 +206,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget buildPaymentCard({
     required String iconPath,
     required String title,
-    required String subtitle,
+    required String cardNumber, // Novo parâmetro para o número do cartão
     required bool selected,
     required ValueChanged<bool?> onChanged,
   }) {
@@ -181,8 +225,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset(
                   iconPath,
-                  width: 50,
-                  height: 50,
+                  width: 45,
+                  height: 45,
                 ),
               ),
               const SizedBox(width: 20),
@@ -194,12 +238,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       title,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
+                        fontSize: 16.0,
                       ),
                     ),
                     const SizedBox(height: 4.0),
+                    const SizedBox(height: 4.0),
                     Text(
-                      subtitle,
+                      cardNumber, // Exibe o número do cartão como subtítulo
                       style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 12.0,
@@ -209,7 +254,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 ),
               ),
               Transform.scale(
-                scale: 1.2,
+                scale: 1,
                 child: Checkbox(
                   side: const BorderSide(width: 0.5),
                   activeColor: Colors.redAccent,
@@ -227,7 +272,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => const CardDetailsScreen(),
+            builder: (context) => CardDetailsScreen(
+                cardNumber: cardNumber), // Aqui você passa o número do cartão
           ),
         );
       },

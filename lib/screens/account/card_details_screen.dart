@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CardDetailsScreen extends StatefulWidget {
-  const CardDetailsScreen({super.key});
+  final String?
+      cardNumber; // Adicione o número do cartão como um parâmetro opcional
+  const CardDetailsScreen({this.cardNumber, super.key});
 
   @override
   State<CardDetailsScreen> createState() => _CardDetailsScreenState();
@@ -26,6 +28,8 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _nameController.text = prefs.getString('cardName') ?? '';
+      /* _numberController.text = widget.cardNumber ??
+          ''; // Use o número do cartão fornecido pelo parâmetro widget */
       _numberController.text = prefs.getString('cardNumber') ?? '';
       _dateController.text = prefs.getString('cardDate') ?? '';
       _codeController.text = prefs.getString('cardCode') ?? '';
@@ -42,6 +46,10 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Detalhes do cartão salvos com sucesso!')),
     );
+
+    setState(() {
+      _numberController.text = _numberController.text;
+    });
   }
 
   @override
