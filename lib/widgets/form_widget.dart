@@ -165,6 +165,14 @@ class _FormWidgetState extends State<FormWidget> {
                         const EdgeInsets.fromLTRB(12.0, 14.0, 12.0, 12.0),
                   ),
                   keyboardType: TextInputType.number,
+                  onChanged: (text) {
+                    if (text.length > 4) {
+                      ccvController.value = TextEditingValue(
+                        text: text.substring(0, 4),
+                        selection: TextSelection.collapsed(offset: text.length),
+                      );
+                    }
+                  },
                 ),
               ),
             ],
