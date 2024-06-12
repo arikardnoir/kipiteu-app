@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 class FormWidget extends StatefulWidget {
@@ -7,12 +9,12 @@ class FormWidget extends StatefulWidget {
   final Function(String) onChangedCVV;
 
   const FormWidget({
-    Key? key,
+    super.key,
     required this.onChangedCardNumber,
     required this.onChangedCardHolder,
     required this.onChangedExpiryDate,
     required this.onChangedCVV,
-  }) : super(key: key);
+  });
 
   @override
   _FormWidgetState createState() => _FormWidgetState();
@@ -61,7 +63,7 @@ class _FormWidgetState extends State<FormWidget> {
     }
 
     String maskedText = cleanedText.length > 8
-        ? cleanedText.substring(0, 4) + '********' + cleanedText.substring(12)
+        ? '${cleanedText.substring(0, 4)}********${cleanedText.substring(12)}'
         : cleanedText;
 
     String formattedText = '';
@@ -133,6 +135,20 @@ class _FormWidgetState extends State<FormWidget> {
                         const EdgeInsets.fromLTRB(12.0, 14.0, 12.0, 12.0),
                   ),
                   keyboardType: TextInputType.datetime,
+                  onChanged: (text) {
+                    if (text.length == 2 && !text.contains('/')) {
+                      expiryDateController.text = '$text/';
+                      expiryDateController.selection =
+                          TextSelection.fromPosition(TextPosition(
+                              offset: expiryDateController.text.length));
+                    }
+                    if (text.length > 5) {
+                      expiryDateController.value = TextEditingValue(
+                        text: text.substring(0, 5),
+                        selection: TextSelection.collapsed(offset: text.length),
+                      );
+                    }
+                  },
                 ),
               ),
               const SizedBox(width: 20),
