@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,6 +49,26 @@ class _FormWidgetState extends State<FormWidget> {
     });
   }
 
+  void _saveCardData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('cardNumber', cardNumberController.text);
+    await prefs.setString('cardHolder', cardHolderController.text);
+    await prefs.setString('expiryDate', expiryDateController.text);
+    await prefs.setString('cvv', ccvController.text);
+
+    Navigator.pop(context);
+  }
+
+  void _clearCardData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('cardNumber');
+    await prefs.remove('cardHolder');
+    await prefs.remove('expiryDate');
+    await prefs.remove('cvv');
+
+    Navigator.pop(context);
+  }
+
   void _loadCardData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? cardNumber = prefs.getString('cardNumber');
@@ -72,20 +92,11 @@ class _FormWidgetState extends State<FormWidget> {
 
   @override
   void dispose() {
-    _saveCardData();
     cardNumberController.dispose();
     cardHolderController.dispose();
     expiryDateController.dispose();
     ccvController.dispose();
     super.dispose();
-  }
-
-  void _saveCardData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('cardNumber', cardNumberController.text);
-    await prefs.setString('cardHolder', cardHolderController.text);
-    await prefs.setString('expiryDate', expiryDateController.text);
-    await prefs.setString('cvv', ccvController.text);
   }
 
   String formatAndMaskCardNumber(String text) {
@@ -215,7 +226,7 @@ class _FormWidgetState extends State<FormWidget> {
             width: 330,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pop(context);
+                _saveCardData();
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
@@ -227,6 +238,28 @@ class _FormWidgetState extends State<FormWidget> {
               ),
               child: const Text(
                 'Salvar',
+                style: TextStyle(fontSize: 16.0),
+              ),
+            ),
+          ),
+          const SizedBox(height: 15),
+          SizedBox(
+            height: 50,
+            width: 330,
+            child: ElevatedButton(
+              onPressed: () {
+                _clearCardData();
+              },
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.redAccent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(7),
+                ),
+                fixedSize: const Size.fromHeight(18),
+              ),
+              child: const Text(
+                'Eliminar',
                 style: TextStyle(fontSize: 16.0),
               ),
             ),
