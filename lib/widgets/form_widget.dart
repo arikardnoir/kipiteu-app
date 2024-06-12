@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FormWidget extends StatefulWidget {
   final Function(String) onChangedCardNumber;
@@ -32,6 +33,7 @@ class _FormWidgetState extends State<FormWidget> {
   @override
   void initState() {
     super.initState();
+    _loadCardData();
     cardNumberController.addListener(() {
       String cleanedNumber = cardNumberController.text.replaceAll(' ', '');
       widget.onChangedCardNumber(cleanedNumber);
@@ -47,13 +49,43 @@ class _FormWidgetState extends State<FormWidget> {
     });
   }
 
+  void _loadCardData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? cardNumber = prefs.getString('cardNumber');
+    String? cardHolder = prefs.getString('cardHolder');
+    String? expiryDate = prefs.getString('expiryDate');
+    String? cvv = prefs.getString('cvv');
+
+    if (cardNumber != null) {
+      cardNumberController.text = cardNumber;
+    }
+    if (cardHolder != null) {
+      cardHolderController.text = cardHolder;
+    }
+    if (expiryDate != null) {
+      expiryDateController.text = expiryDate;
+    }
+    if (cvv != null) {
+      ccvController.text = cvv;
+    }
+  }
+
   @override
   void dispose() {
+    _saveCardData();
     cardNumberController.dispose();
     cardHolderController.dispose();
     expiryDateController.dispose();
     ccvController.dispose();
     super.dispose();
+  }
+
+  void _saveCardData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('cardNumber', cardNumberController.text);
+    await prefs.setString('cardHolder', cardHolderController.text);
+    await prefs.setString('expiryDate', expiryDateController.text);
+    await prefs.setString('cvv', ccvController.text);
   }
 
   String formatAndMaskCardNumber(String text) {
@@ -176,6 +208,28 @@ class _FormWidgetState extends State<FormWidget> {
                 ),
               ),
             ],
+          ),
+          const SizedBox(height: 30),
+          SizedBox(
+            height: 50,
+            width: 330,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.redAccent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(7),
+                ),
+                fixedSize: const Size.fromHeight(18),
+              ),
+              child: const Text(
+                'Salvar',
+                style: TextStyle(fontSize: 16.0),
+              ),
+            ),
           ),
         ],
       ),

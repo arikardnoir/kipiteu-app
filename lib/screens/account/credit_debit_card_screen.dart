@@ -31,7 +31,7 @@ class _CreditDebitCardScreenState extends State<CreditDebitCardScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Cartão de crédito/débito'),
+        title: const Text('Cartão'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -78,27 +78,6 @@ class _CreditDebitCardScreenState extends State<CreditDebitCardScreen> {
             ),
             const SizedBox(
               height: 10,
-            ),
-            SizedBox(
-              height: 50,
-              width: 355,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Implement your payment logic here
-                },
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.redAccent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(7),
-                  ),
-                  fixedSize: const Size.fromHeight(18),
-                ),
-                child: const Text(
-                  'Salvar',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-              ),
             ),
           ],
         ),
