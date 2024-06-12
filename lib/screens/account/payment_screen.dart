@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:kipiteu_app/screens/account/card_details_screen.dart';
 import 'package:kipiteu_app/screens/account/credit_debit_card_screen.dart';
+import 'package:kipiteu_app/screens/account/pix_payment_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -56,9 +57,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
           child: Column(
             children: [
               const SizedBox(height: 40),
-
               SizedBox(
-                height: 70,
+                height: 80,
                 width: 380,
                 child: InkWell(
                   child: Card(
@@ -85,7 +85,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 10,
+                                  height: 14,
                                 ),
                                 Text(
                                   'Cartão de crédito/débito',
@@ -117,9 +117,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
               const SizedBox(
                 height: 10,
               ),
-
               SizedBox(
-                height: 70,
+                height: 80,
                 width: 380,
                 child: InkWell(
                   child: Card(
@@ -129,26 +128,27 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       borderRadius: BorderRadius.circular(7),
                       side: const BorderSide(color: Colors.grey),
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
                       child: Row(
                         children: [
-                          /*  Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Icon(
-                                Icons.add,
-                                color: Colors.redAccent,
-                              )), */
-                          SizedBox(width: 5),
-                          Expanded(
+                          Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.asset(
+                                'assets/icons/payment_icons/pix.png',
+                                width: 20,
+                                height: 20,
+                              )),
+                          const SizedBox(width: 5),
+                          const Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 10,
+                                  height: 16,
                                 ),
                                 Text(
-                                  'Pix',
+                                  'PIX',
                                   style: TextStyle(
                                       fontSize: 18.0,
                                       fontWeight: FontWeight.bold),
@@ -161,41 +161,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     ),
                   ),
                   onTap: () {
-                    /* Navigator.of(context).push(
+                    Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const MyHomePage(
-                          title: '',
-                        ),
+                        builder: (context) => const PixPaymentScreen(),
                       ),
-                    ); */
+                    );
                   },
                 ),
               ),
-
-              const SizedBox(
-                  height: 200), // Space between the card and the button
-              SizedBox(
-                height: 50,
-                width: 370,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Implement your payment logic here
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.redAccent,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(7),
-                    ),
-                    fixedSize: const Size.fromHeight(18),
-                  ),
-                  child: const Text(
-                    'Pagar',
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 200),
             ],
           ),
         ),

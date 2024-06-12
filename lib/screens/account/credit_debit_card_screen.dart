@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names, avoid_types_as_parameter_names
-
 import 'package:flutter/material.dart';
 import 'package:kipiteu_app/widgets/form_widget.dart';
 import 'package:u_credit_card/u_credit_card.dart';
@@ -23,11 +21,6 @@ class CreditDebitCardScreen extends StatefulWidget {
 }
 
 class _CreditDebitCardScreenState extends State<CreditDebitCardScreen> {
-  final TextEditingController cardNumberController = TextEditingController();
-  final TextEditingController cardHolderController = TextEditingController();
-  final TextEditingController expiryDateController = TextEditingController();
-  final TextEditingController ccvController = TextEditingController();
-
   String cardNumber = '1234567812345678';
   String cardHolderFullName = 'John Doe';
   String validThru = '01/28';
@@ -53,8 +46,12 @@ class _CreditDebitCardScreenState extends State<CreditDebitCardScreen> {
               cvvNumber: cvvNumber,
               topLeftColor: Colors.black,
               bottomRightColor: Colors.blue,
-              cardProviderLogo: const Icon(Icons.monetization_on),
-              cardProviderLogoPosition: CardProviderLogoPosition.right,
+              /* cardProviderLogo: SizedBox(
+                height: 25,
+                width: 25,
+                child: CardWidget(cardNumber: cardNumber),
+              ), */
+              //cardProviderLogoPosition: CardProviderLogoPosition.right,
               enableFlipping: true,
             ),
             FormWidget(
@@ -78,6 +75,30 @@ class _CreditDebitCardScreenState extends State<CreditDebitCardScreen> {
                   cvvNumber = value;
                 });
               },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: 50,
+              width: 355,
+              child: ElevatedButton(
+                onPressed: () {
+                  // Implement your payment logic here
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.redAccent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  fixedSize: const Size.fromHeight(18),
+                ),
+                child: const Text(
+                  'Salvar',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+              ),
             ),
           ],
         ),
