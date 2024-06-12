@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 
 class FormWidget extends StatefulWidget {
@@ -9,12 +7,12 @@ class FormWidget extends StatefulWidget {
   final Function(String) onChangedCVV;
 
   const FormWidget({
-    super.key,
+    Key? key,
     required this.onChangedCardNumber,
     required this.onChangedCardHolder,
     required this.onChangedExpiryDate,
     required this.onChangedCVV,
-  });
+  }) : super(key: key);
 
   @override
   _FormWidgetState createState() => _FormWidgetState();
@@ -56,14 +54,22 @@ class _FormWidgetState extends State<FormWidget> {
     super.dispose();
   }
 
-  String formatCardNumber(String text) {
+  String formatAndMaskCardNumber(String text) {
     String cleanedText = text.replaceAll(' ', '');
+    if (cleanedText.length > 16) {
+      cleanedText = cleanedText.substring(0, 16);
+    }
+
+    String maskedText = cleanedText.length > 8
+        ? cleanedText.substring(0, 4) + '********' + cleanedText.substring(12)
+        : cleanedText;
+
     String formattedText = '';
-    for (int i = 0; i < cleanedText.length; i++) {
+    for (int i = 0; i < maskedText.length; i++) {
       if (i > 0 && i % 4 == 0) {
         formattedText += ' ';
       }
-      formattedText += cleanedText[i];
+      formattedText += maskedText[i];
     }
     return formattedText;
   }
@@ -88,7 +94,7 @@ class _FormWidgetState extends State<FormWidget> {
             keyboardType: TextInputType.number,
             style: const TextStyle(fontSize: 16.0),
             onChanged: (text) {
-              String formattedText = formatCardNumber(text);
+              String formattedText = formatAndMaskCardNumber(text);
               if (formattedText.length > 19) {
                 formattedText = formattedText.substring(0, 19);
               }
