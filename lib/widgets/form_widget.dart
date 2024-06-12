@@ -33,7 +33,8 @@ class _FormWidgetState extends State<FormWidget> {
   void initState() {
     super.initState();
     cardNumberController.addListener(() {
-      widget.onChangedCardNumber(cardNumberController.text);
+      String cleanedNumber = cardNumberController.text.replaceAll(' ', '');
+      widget.onChangedCardNumber(cleanedNumber);
     });
     cardHolderController.addListener(() {
       widget.onChangedCardHolder(cardHolderController.text);
@@ -53,6 +54,18 @@ class _FormWidgetState extends State<FormWidget> {
     expiryDateController.dispose();
     ccvController.dispose();
     super.dispose();
+  }
+
+  String formatCardNumber(String text) {
+    String cleanedText = text.replaceAll(' ', '');
+    String formattedText = '';
+    for (int i = 0; i < cleanedText.length; i++) {
+      if (i > 0 && i % 4 == 0) {
+        formattedText += ' ';
+      }
+      formattedText += cleanedText[i];
+    }
+    return formattedText;
   }
 
   @override
@@ -75,11 +88,15 @@ class _FormWidgetState extends State<FormWidget> {
             keyboardType: TextInputType.number,
             style: const TextStyle(fontSize: 16.0),
             onChanged: (text) {
-              if (text.length > 16) {
-                cardNumberController.text = text.substring(0, 16);
-                cardNumberController.selection =
-                    TextSelection.fromPosition(const TextPosition(offset: 16));
+              String formattedText = formatCardNumber(text);
+              if (formattedText.length > 19) {
+                formattedText = formattedText.substring(0, 19);
               }
+              cardNumberController.value = TextEditingValue(
+                text: formattedText,
+                selection:
+                    TextSelection.collapsed(offset: formattedText.length),
+              );
             },
           ),
           const SizedBox(height: 20),
@@ -128,7 +145,6 @@ class _FormWidgetState extends State<FormWidget> {
                   keyboardType: TextInputType.number,
                 ),
               ),
-              //CardWidget(cardNumber: cardNumberController.text),
             ],
           ),
         ],
