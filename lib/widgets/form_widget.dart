@@ -74,6 +74,13 @@ class _FormWidgetState extends State<FormWidget> {
             ),
             keyboardType: TextInputType.number,
             style: const TextStyle(fontSize: 16.0),
+            onChanged: (text) {
+              if (text.length > 16) {
+                cardNumberController.text = text.substring(0, 16);
+                cardNumberController.selection =
+                    TextSelection.fromPosition(const TextPosition(offset: 16));
+              }
+            },
           ),
           const SizedBox(height: 20),
           TextField(
