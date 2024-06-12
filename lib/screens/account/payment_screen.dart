@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:kipiteu_app/screens/account/card_details_screen.dart';
 import 'package:kipiteu_app/screens/account/credit_debit_card_screen.dart';
 import 'package:kipiteu_app/screens/account/pix_payment_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -174,83 +173,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget buildPaymentCard({
-    required String iconPath,
-    required String title,
-    required String cardNumber, // Novo parâmetro para o número do cartão
-    required bool selected,
-    required ValueChanged<bool?> onChanged,
-  }) {
-    return InkWell(
-      child: Card(
-        color: Colors.white,
-        elevation: null,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(7),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(
-                  iconPath,
-                  width: 45,
-                  height: 45,
-                ),
-              ),
-              const SizedBox(width: 20),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.0,
-                      ),
-                    ),
-                    const SizedBox(height: 4.0),
-                    const SizedBox(height: 4.0),
-                    Text(
-                      cardNumber, // Exibe o número do cartão como subtítulo
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 12.0,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Transform.scale(
-                scale: 1,
-                child: Checkbox(
-                  side: const BorderSide(width: 0.5),
-                  activeColor: Colors.redAccent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  value: selected,
-                  onChanged: onChanged,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => CardDetailsScreen(
-                cardNumber: cardNumber), // Aqui você passa o número do cartão
-          ),
-        );
-      },
     );
   }
 }

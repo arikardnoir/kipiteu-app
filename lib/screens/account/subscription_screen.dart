@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:kipiteu_app/screens/account/payment_screen.dart';
 
 class SubscriptionScreen extends StatefulWidget {
   const SubscriptionScreen({super.key});
@@ -69,18 +70,17 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                 });
               },
             ),
-            const SizedBox(
-                height: 300), // Space between the card and the button
+            const SizedBox(height: 300),
             SizedBox(
               height: 60,
               width: 390,
               child: ElevatedButton(
                 onPressed: () {
-                  /* Navigator.of(context).pushReplacement(
+                  Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => const SubscriptionScreen(),
+                      builder: (context) => const PaymentScreen(),
                     ),
-                  ); */
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
